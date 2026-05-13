@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>VIBE HITS · Rádio Cyberpunk 24/7</title>
-    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: tech style -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,7 +21,6 @@
             position: relative;
         }
 
-        /* CANVAS para partículas e fundo animado (aurora + reagente) */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -37,13 +34,12 @@
         .container {
             position: relative;
             z-index: 2;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 1.5rem 2rem 3rem;
         }
 
-        /* vidro fosco + neon */
-        .glass-card, .player-card, .chat-box, .top-hits-list, .dj-card, .pedido-form {
+        .glass-card, .player-card, .top-hits-list, .dj-card {
             background: rgba(10, 10, 20, 0.55);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
@@ -57,7 +53,7 @@
             box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
         }
 
-        /* ========== LOGO COM MOVIMENTO 3D ESTILO NEXCOOEE ========== */
+        /* Logo em movimento */
         .logo-motion {
             perspective: 800px;
             display: inline-block;
@@ -74,30 +70,13 @@
             animation: gradientShift 3s ease infinite, float3d 2.2s infinite ease-in-out, textGlowPulse 1.8s infinite alternate;
             display: inline-block;
             transform-style: preserve-3d;
-            transform-origin: center;
-            text-shadow: 0 0 8px rgba(0,229,255,0.5);
         }
         @keyframes float3d {
-            0% {
-                transform: rotateX(0deg) rotateY(0deg) translateZ(0px);
-                letter-spacing: -1px;
-            }
-            25% {
-                transform: rotateX(4deg) rotateY(6deg) translateZ(6px);
-                letter-spacing: 1px;
-            }
-            50% {
-                transform: rotateX(-2deg) rotateY(-4deg) translateZ(3px);
-                letter-spacing: -0.5px;
-            }
-            75% {
-                transform: rotateX(3deg) rotateY(2deg) translateZ(8px);
-                letter-spacing: 0.5px;
-            }
-            100% {
-                transform: rotateX(0deg) rotateY(0deg) translateZ(0px);
-                letter-spacing: -1px;
-            }
+            0% { transform: rotateX(0deg) rotateY(0deg) translateZ(0px); letter-spacing: -1px; }
+            25% { transform: rotateX(4deg) rotateY(6deg) translateZ(6px); letter-spacing: 1px; }
+            50% { transform: rotateX(-2deg) rotateY(-4deg) translateZ(3px); letter-spacing: -0.5px; }
+            75% { transform: rotateX(3deg) rotateY(2deg) translateZ(8px); letter-spacing: 0.5px; }
+            100% { transform: rotateX(0deg) rotateY(0deg) translateZ(0px); letter-spacing: -1px; }
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -107,29 +86,6 @@
         @keyframes textGlowPulse {
             0% { text-shadow: 0 0 2px #b100ff, 0 0 5px #00e5ff; opacity: 0.9; }
             100% { text-shadow: 0 0 18px #ff00aa, 0 0 25px #00ffff, 0 0 8px #b100ff; opacity: 1; }
-        }
-        /* glitch sutil nos cantos */
-        .neon-logo::before {
-            content: "VIBE HITS";
-            position: absolute;
-            left: 2px;
-            top: -1px;
-            background: linear-gradient(135deg, #ff00aa, #b100ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            width: 100%;
-            z-index: -1;
-            opacity: 0.4;
-            animation: glitchMove 3s infinite;
-        }
-        @keyframes glitchMove {
-            0% { transform: translate(0); opacity: 0.2; }
-            20% { transform: translate(-2px, 1px); opacity: 0.5; }
-            40% { transform: translate(2px, -1px); opacity: 0.3; }
-            60% { transform: translate(-1px, 2px); opacity: 0.6; }
-            80% { transform: translate(1px, -2px); opacity: 0.2; }
-            100% { transform: translate(0); opacity: 0.4; }
         }
 
         .badge-247 {
@@ -208,64 +164,28 @@
             color: #ff00aa;
         }
 
-        /* grid 2 colunas */
         .grid-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.8rem;
             margin-bottom: 2rem;
         }
-        .chat-box {
-            padding: 1rem;
-            height: 380px;
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0.5rem;
-            font-size: 0.85rem;
-        }
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-        }
-        .chat-input-area input {
-            flex: 1;
-            background: #111122;
-            border: 1px solid #b100ff;
-            padding: 8px 12px;
-            border-radius: 40px;
-            color: white;
-        }
-        .chat-input-area button {
-            background: #b100ff;
-            border: none;
-            padding: 0 15px;
-            border-radius: 40px;
-            color: white;
-            font-weight: bold;
-        }
+
         .top-hits-list {
-            padding: 1.2rem;
+            padding: 1.5rem;
         }
         .hit-item {
             display: flex;
             justify-content: space-between;
-            padding: 0.7rem 0;
+            align-items: center;
+            padding: 0.8rem 0;
             border-bottom: 1px solid rgba(0,229,255,0.2);
         }
-        .pedir-hit {
-            background: none;
-            border: 1px solid #ff00aa;
-            border-radius: 20px;
-            padding: 0.2rem 0.8rem;
-            color: #ff00aa;
+        .hit-votos {
+            color: #00ffcc;
             font-weight: bold;
-            cursor: pointer;
         }
+
         .dj-grid {
             display: flex;
             gap: 1rem;
@@ -277,6 +197,8 @@
             padding: 1rem;
             text-align: center;
             min-width: 110px;
+            background: rgba(10,10,20,0.6);
+            border-radius: 1.5rem;
         }
         .insta-grid {
             display: grid;
@@ -311,24 +233,6 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .pedido-form {
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-        .pedido-form input, .pedido-form button {
-            width: 100%;
-            margin: 0.5rem 0;
-            padding: 0.7rem;
-            border-radius: 2rem;
-            border: none;
-            background: #0f0f1f;
-            color: white;
-        }
-        .pedido-form button {
-            background: linear-gradient(90deg, #b100ff, #00e5ff);
-            font-weight: bold;
-            cursor: pointer;
-        }
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -341,18 +245,12 @@
             .grid-2col { grid-template-columns: 1fr; }
             .neon-logo { font-size: 2.2rem; }
             .logo-area { flex-direction: column; align-items: center; text-align: center; }
-            .player-controls button { font-size: 1.6rem; }
         }
-        button, .pedir-hit, .chat-input-area button { cursor: pointer; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0a1a; }
-        ::-webkit-scrollbar-thumb { background: cyan; }
     </style>
 </head>
 <body>
 <canvas id="canvas-bg"></canvas>
 <div class="container">
-    <!-- Header com LOGO EM MOVIMENTO CONSTANTE (estilo NEXCOOEE) -->
     <div class="logo-area">
         <div class="logo-motion">
             <div class="neon-logo">VIBE HITS</div>
@@ -364,8 +262,8 @@
         </div>
     </div>
 
-    <!-- Player ao vivo + Tocando agora com STREAM REAL -->
-    <div class="player-card" style="margin-bottom: 1.8rem;">
+    <!-- Player com stream real -->
+    <div class="player-card" style="margin-bottom: 1.8rem; padding: 1.5rem;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span class="live-badge"><i class="fas fa-circle"></i> AO VIVO</span>
             <span><i class="fas fa-head-side-headphones"></i> <span id="ouvinteCount">1.2k</span> ouvindo</span>
@@ -378,57 +276,32 @@
             <button id="volDown"><i class="fas fa-volume-down"></i></button>
             <button id="volUp"><i class="fas fa-volume-up"></i></button>
         </div>
-        <div class="now-playing">
+        <div class="now-playing" style="text-align: center; margin-top: 10px;">
             <img src="https://placehold.co/60x60/1a1a2e/cyan?text=🎧" style="border-radius: 50%; width: 60px; margin-bottom: 6px;" alt="capa">
-            <div class="track-name" id="trackName">Carregando stream...</div>
+            <div class="track-name" id="trackName" style="font-size: 1.3rem; font-weight: bold;">Carregando stream...</div>
             <div id="artistName">VIBE HITS · Ao vivo</div>
-            <div style="font-size: 0.7rem;"><i class="fas fa-waveform"></i> Transmissão digital • Clique no PLAY</div>
         </div>
-        <!-- elemento de áudio oculto para o stream real -->
         <audio id="radioStream" preload="none" crossorigin="anonymous"></audio>
     </div>
 
-    <!-- Grid principal -->
+    <!-- Grid com TOP HITS e LOCUTORES (apenas funcionais visualmente) -->
     <div class="grid-2col">
-        <div>
-            <div class="top-hits-list" style="margin-bottom: 1.8rem;">
-                <h3><i class="fas fa-fire-flame"></i> TOP HITS 🔥</h3>
-                <div id="topHitsContainer"></div>
-            </div>
-            <div class="glass-card" style="padding: 1.2rem;">
-                <h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3>
-                <div class="dj-grid" id="djGrid"></div>
-            </div>
+        <div class="top-hits-list glass-card">
+            <h3><i class="fas fa-fire-flame"></i> TOP HITS 🔥</h3>
+            <div id="topHitsContainer"></div>
         </div>
-        <div>
-            <div class="chat-box">
-                <h3><i class="fas fa-comments"></i> CHAT AO VIVO</h3>
-                <div class="chat-messages" id="chatMessages">
-                    <div><span style="color:#ff00aa;"><i class="fas fa-user"></i> DJ_Vibe:</span> Bora ouvir a VIBE HITS! 🔥</div>
-                    <div><span style="color:#00e5ff;"><i class="fas fa-user"></i> Lipe:</span> Que som insano!!! 🎶</div>
-                    <div><span style="color:#ff00aa;"><i class="fas fa-user"></i> Aninha:</span> Já tô no play!</div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Mande uma mensagem...">
-                    <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
+        <div class="glass-card" style="padding: 1.5rem;">
+            <h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3>
+            <div class="dj-grid" id="djGrid"></div>
         </div>
     </div>
 
-    <!-- Feed Instagram -->
+    <!-- Feed Instagram (visual) -->
     <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
         <h3><i class="fab fa-instagram"></i> @VIBEHITS_RADIO · feed</h3>
         <div class="insta-grid" id="instaGrid"></div>
     </div>
 
-    <!-- Pedido de música -->
-    <div class="pedido-form">
-        <h3><i class="fas fa-music"></i> 📻 PEDIDO DE MÚSICA</h3>
-        <input type="text" id="pedidoNome" placeholder="Seu nome ou @">
-        <input type="text" id="pedidoMusica" placeholder="Música / Artista">
-        <button id="enviarPedido">ENVIAR PEDIDO <i class="fas fa-headphones"></i></button>
-    </div>
     <footer>🌌 VIBE HITS · Transmitindo energia 24/7 · Só hit atrás de hit · Conecte-se na batida</footer>
 </div>
 
@@ -438,7 +311,7 @@
 
 <script>
     (function() {
-        // ========== CANVAS FUNDO + PARTÍCULAS REATIVAS ==========
+        // ========== FUNDO ANIMADO (partículas + aurora) ==========
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -463,7 +336,6 @@
                     radius: Math.random() * 3 + 1,
                     speedX: (Math.random() - 0.5) * 0.3,
                     speedY: (Math.random() - 0.5) * 0.3,
-                    alpha: Math.random() * 0.5 + 0.2,
                     color: `hsla(${Math.random() * 60 + 260}, 90%, 65%, 0.7)`
                 });
             }
@@ -527,60 +399,47 @@
         resizeCanvas();
         animateBg();
 
-        // ========== STREAM REAL via HTML5 Audio ==========
-        const STREAM_URL = "https://stm16.xcast.com.br:7680/stream";  // stream real fornecido
-        
+        // ========== STREAM REAL ==========
+        const STREAM_URL = "https://stm16.xcast.com.br:7680/stream";
         const audioElement = document.getElementById('radioStream');
         const playBtn = document.getElementById('playPauseBtn');
         const trackNameSpan = document.getElementById('trackName');
         const artistSpan = document.getElementById('artistName');
         const ouvinteSpan = document.getElementById('ouvinteCount');
-        
         let isPlaying = false;
-        
-        // Define a URL do stream
         audioElement.src = STREAM_URL;
-        
-        // Função para iniciar a reprodução (dispara após interação do usuário)
+
         function startPlay() {
             audioElement.play().then(() => {
                 isPlaying = true;
                 playBtn.innerHTML = '<i class="fas fa-pause-circle"></i>';
                 trackNameSpan.innerText = "🔴 TRANSMISSÃO AO VIVO";
                 artistSpan.innerText = "VIBE HITS · 24/7";
-                addSystemMessage("🎧 Stream iniciado! Agora você está ouvindo a VIBE HITS ao vivo!");
                 animateEqualizer(true);
             }).catch((error) => {
                 console.error("Erro ao reproduzir stream:", error);
-                alert("Não foi possível iniciar o stream. Verifique sua conexão ou tente novamente mais tarde.");
+                alert("Não foi possível iniciar o stream. Verifique sua conexão ou tente novamente.");
                 isPlaying = false;
                 playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
                 animateEqualizer(false);
             });
         }
-        
+
         function stopPlay() {
             audioElement.pause();
-            // Reseta o tempo para parar o buffering
             audioElement.currentTime = 0;
             isPlaying = false;
             playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
             trackNameSpan.innerText = "Pausado";
             artistSpan.innerText = "Clique no PLAY para ouvir";
             animateEqualizer(false);
-            addSystemMessage("⏸️ Stream pausado.");
         }
-        
-        // Evento de clique no play/pause
+
         playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                stopPlay();
-            } else {
-                startPlay();
-            }
+            if (isPlaying) stopPlay();
+            else startPlay();
         });
-        
-        // Simular animação das barras do equalizador quando está tocando
+
         let eqInterval = null;
         function animateEqualizer(active) {
             const bars = document.querySelectorAll('.eq-bar');
@@ -589,80 +448,60 @@
                 eqInterval = setInterval(() => {
                     if (isPlaying) {
                         bars.forEach(bar => {
-                            const randomHeight = Math.floor(Math.random() * 35) + 15;
-                            bar.style.height = randomHeight + 'px';
+                            bar.style.height = Math.floor(Math.random() * 35) + 15 + 'px';
                         });
                     }
                 }, 150);
             } else {
                 if (eqInterval) clearInterval(eqInterval);
-                bars.forEach(bar => {
-                    bar.style.height = '20px';
-                });
+                bars.forEach(bar => bar.style.height = '20px');
             }
         }
-        
-        // Controle de volume simulado
-        let currentVolume = 0.8;
-        audioElement.volume = currentVolume;
-        document.getElementById('volDown').addEventListener('click', () => {
-            if (audioElement.volume > 0.1) {
-                audioElement.volume = Math.max(0, audioElement.volume - 0.1);
-                currentVolume = audioElement.volume;
-                addSystemMessage(`🔊 Volume reduzido para ${Math.round(currentVolume * 100)}%`);
-            }
-        });
-        document.getElementById('volUp').addEventListener('click', () => {
-            if (audioElement.volume < 0.99) {
-                audioElement.volume = Math.min(1, audioElement.volume + 0.1);
-                currentVolume = audioElement.volume;
-                addSystemMessage(`🔊 Volume aumentado para ${Math.round(currentVolume * 100)}%`);
-            }
-        });
-        
-        // Eventos do stream para detectar quando começar a tocar
+
         audioElement.addEventListener('playing', () => {
             isPlaying = true;
             playBtn.innerHTML = '<i class="fas fa-pause-circle"></i>';
             trackNameSpan.innerText = "🔴 TRANSMISSÃO AO VIVO";
             animateEqualizer(true);
         });
-        
         audioElement.addEventListener('pause', () => {
-            if (audioElement.currentTime > 0 || audioElement.paused) {
+            if (audioElement.paused) {
                 isPlaying = false;
                 playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
                 animateEqualizer(false);
             }
         });
-        
-        audioElement.addEventListener('error', (e) => {
-            console.error("Erro no stream:", e);
+        audioElement.addEventListener('error', () => {
             if (isPlaying) {
-                addSystemMessage("⚠️ O stream parou inesperadamente. Tentando reconectar...");
-                setTimeout(() => {
-                    if (isPlaying) {
-                        audioElement.load();
-                        audioElement.play().catch(err => console.log("Reconexão falhou", err));
-                    }
-                }, 3000);
+                setTimeout(() => { if (isPlaying) { audioElement.load(); audioElement.play().catch(e=>console.log); } }, 3000);
             }
         });
-        
-        // Simular contagem de ouvintes
+
+        document.getElementById('volDown').addEventListener('click', () => {
+            if (audioElement.volume > 0) {
+                audioElement.volume = Math.max(0, audioElement.volume - 0.1);
+            }
+        });
+        document.getElementById('volUp').addEventListener('click', () => {
+            if (audioElement.volume < 0.99) {
+                audioElement.volume = Math.min(1, audioElement.volume + 0.1);
+            }
+        });
+
+        // Simulação de ouvintes
         setInterval(() => {
             if (isPlaying) {
-                let currentCount = parseInt(ouvinteSpan.innerText);
-                if (isNaN(currentCount)) currentCount = 1200;
+                let current = parseInt(ouvinteSpan.innerText);
+                if (isNaN(current)) current = 1200;
                 let variation = Math.floor(Math.random() * 30) - 10;
-                let newCount = currentCount + variation;
+                let newCount = current + variation;
                 if (newCount < 800) newCount = 800;
                 if (newCount > 2800) newCount = 2800;
                 ouvinteSpan.innerText = newCount;
             }
         }, 15000);
-        
-        // TOP HITS (não alterado)
+
+        // TOP HITS (estático)
         const topHits = [
             { nome: "Blinding Lights", artista: "The Weeknd", votos: 512 },
             { nome: "Flowers", artista: "Miley Cyrus", votos: 489 },
@@ -670,29 +509,15 @@
             { nome: "Supernova", artista: "Kylie", votos: 298 },
             { nome: "Levitating", artista: "Dua Lipa", votos: 254 }
         ];
-        function renderTopHits() {
-            const container = document.getElementById('topHitsContainer');
-            container.innerHTML = '';
-            topHits.forEach((hit, idx) => {
-                const div = document.createElement('div');
-                div.className = 'hit-item';
-                div.innerHTML = `
-                    <div><strong>${idx+1}</strong> ${hit.nome} · ${hit.artista} <span style="color:cyan;">🔥${hit.votos}</span></div>
-                    <button class="pedir-hit" data-musica="${hit.nome} - ${hit.artista}">Pedir</button>
-                `;
-                container.appendChild(div);
-            });
-            document.querySelectorAll('.pedir-hit').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const musica = btn.getAttribute('data-musica');
-                    alert(`🎵 Pedido enviado: "${musica}" para a VIBE HITS! 🔥`);
-                    addSystemMessage(`📢 ${musica} foi pedido por alguém no chat!`);
-                });
-            });
-        }
-        renderTopHits();
-        
-        // LOCUTORES
+        const container = document.getElementById('topHitsContainer');
+        topHits.forEach((hit, idx) => {
+            const div = document.createElement('div');
+            div.className = 'hit-item';
+            div.innerHTML = `<div><strong>${idx+1}</strong> ${hit.nome} · ${hit.artista}</div><div class="hit-votos">🔥 ${hit.votos}</div>`;
+            container.appendChild(div);
+        });
+
+        // Locutores
         const djList = [
             { nome: "DJ NYX", horario: "20h - 00h", icone: "🎧" },
             { nome: "MC AURORA", horario: "00h - 04h", icone: "🎤" },
@@ -702,11 +527,11 @@
         djList.forEach(dj => {
             const card = document.createElement('div');
             card.className = 'dj-card';
-            card.innerHTML = `<div class="dj-avatar">${dj.icone}</div><strong>${dj.nome}</strong><br><small>${dj.horario}</small>`;
+            card.innerHTML = `<div style="font-size:2rem;">${dj.icone}</div><strong>${dj.nome}</strong><br><small>${dj.horario}</small>`;
             djGrid.appendChild(card);
         });
-        
-        // INSTAGRAM FEED
+
+        // Instagram feed (visual placeholder)
         const instaGrid = document.getElementById('instaGrid');
         for (let i = 0; i < 6; i++) {
             const post = document.createElement('div');
@@ -714,50 +539,11 @@
             post.innerHTML = `<i class="fas fa-music" style="font-size: 2rem; color:cyan;"></i><br><span style="font-size:0.7rem;">vibe.hits</span>`;
             instaGrid.appendChild(post);
         }
-        
-        // CHAT FUNCIONAL (front-end)
-        const chatMessagesDiv = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendChatBtn');
-        function addSystemMessage(msg) {
-            const div = document.createElement('div');
-            div.innerHTML = `<span style="color:#00e5ff;"><i class="fas fa-info-circle"></i> Sistema:</span> ${msg}`;
-            chatMessagesDiv.appendChild(div);
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
-        function addUserMessage(nome, texto) {
-            const div = document.createElement('div');
-            div.innerHTML = `<span style="color:#ff00aa;"><i class="fas fa-user"></i> ${nome}:</span> ${texto}`;
-            chatMessagesDiv.appendChild(div);
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
-        sendBtn.addEventListener('click', () => {
-            let msg = chatInput.value.trim();
-            if (msg === "") return;
-            addUserMessage("OUVINTE", msg);
-            chatInput.value = "";
-            setTimeout(() => { if(Math.random() > 0.6) addSystemMessage("DJ curtiu sua mensagem! 🎶"); }, 800);
+
+        // WhatsApp fixo
+        document.getElementById('whatsappBtn').addEventListener('click', () => {
+            alert("📱 WhatsApp: (11) 99999-1234 \nConverse com a gente pelo Zap!");
         });
-        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendBtn.click(); });
-        
-        // PEDIDO DE MÚSICA
-        const enviarPedidoBtn = document.getElementById('enviarPedido');
-        enviarPedidoBtn.addEventListener('click', () => {
-            const nome = document.getElementById('pedidoNome').value.trim() || "Anônimo";
-            const musica = document.getElementById('pedidoMusica').value.trim();
-            if(musica === "") { alert("Digite o nome da música!"); return; }
-            alert(`✨ Pedido enviado, ${nome}! A VIBE HITS tocará "${musica}" em breve!`);
-            addSystemMessage(`📻 ${nome} pediu a música: "${musica}"!`);
-            document.getElementById('pedidoNome').value = "";
-            document.getElementById('pedidoMusica').value = "";
-        });
-        
-        // WHATSAPP
-        const whatsBtn = document.getElementById('whatsappBtn');
-        whatsBtn.addEventListener('click', () => alert("📱 WhatsApp: (11) 99999-1234 \nConverse com a gente pelo Zap!"));
-        
-        // Mensagem inicial
-        setTimeout(() => addSystemMessage("🔥 Stream da VIBE HITS configurado! Clique no PLAY e curta a melhor rádio!"), 1000);
     })();
 </script>
 </body>
