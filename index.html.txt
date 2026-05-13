@@ -1,0 +1,53 @@
+Crie um site completo e responsivo para uma rádio online chamada "VIBE HITS" (ou "VIBEHITS RADIO"), com estilo visual cyberpunk + neon + gamer, misturando Spotify e elementos de rádio noturna.
+
+O site deve funcionar perfeitamente em PC e mobile (design fluido, grid flexível, menu adaptado).
+
+### 🎨 Estilo visual:
+- Cores predominantes: preto (#0a0a0a), roxo neon (#b100ff), azul elétrico (#00e5ff), rosa neon (#ff00aa) e ciano glow (#00ffff).
+- Fundo animado: estilo aurora/cyberwave com ondas neon que se movem suavemente.
+- Partículas flutuantes que reagem ao movimento do mouse (rastro ou interação).
+- Equalizador visual (barras animadas em tempo real) na parte superior ou no player.
+- Logo "VIBE HITS" piscando em neon com efeito glow e leve tremor de luz.
+- Ondas sonoras atrás do conteúdo principal.
+- Fundo escuro com gradientes dinâmicos.
+
+### 📱 Áreas obrigatórias no layout:
+
+1. **Player ao vivo** – com botão play/pause, volume, indicação "AO VIVO" piscando.
+2. **Tocando agora** – capa do artista, nome da música, nome do artista.
+3. **Feed do Instagram** – grid de 3 a 6 posts recentes (placeholder com imagens falsas).
+4. **Chat ao vivo** – área rolável com mensagens simuladas e campo para novo texto.
+5. **Top Hits** – lista das 5 músicas mais pedidas no momento (com botão "Pedir").
+6. **Locutores** – cards com nome, foto (placeholder) e horário de programa.
+7. **Botão WhatsApp fixo** – flutuante no canto inferior direito, com ícone, que abre link simulado.
+8. **Pedido de música** – formulário simples: nome, música, artista, botão enviar.
+9. **Rádio online 24h** – selo ou texto "24/7" com ícone de transmissão.
+
+### ✨ Efeitos especiais:
+- Logo piscando em neon com CSS keyframes.
+- Equalizador com barras de áudio que "dançam" aleatoriamente (simulação).
+- Partículas de fundo que seguem o mouse (JS leve).
+- Transições suaves, bordas neon, vidro fosco (backdrop-filter blur).
+- Modo escuro automático (já é escuro por padrão).
+
+### 📱 Responsividade:
+- No mobile: player ao vivo no topo, menus em hambúrguer (ou abas inferiores), chat reduzido ou ocultável, botão WhatsApp maior.
+- Layout em grid: 2 colunas para desktop, 1 coluna para celular.
+- Todos os textos e botões legíveis em qualquer tamanho.
+
+### 🧠 Funcionalidades mínimas (front-end simulado):
+- O player não precisa de stream real – simular com áudio falso ou apenas interface visual.
+- Botões devem ter hover com glow, cliques com efeito sonoro simulado (opcional).
+- Chat deve permitir enviar mensagens (sem backend, apenas front-end local).
+- Pedido de música envia um alert("Pedido enviado!") ou simula toast.
+
+### 🧩 Slogans (use um deles no cabeçalho ou rodapé):
+"A frequência da nova geração." / "Só hit atrás de hit." / "Sua vibe começa aqui."
+
+### 🖼️ Exemplo de nome exibido:
+"VIBE HITS – Transmitindo energia 24/7"
+
+### 🛠️ Tecnologias sugeridas:
+HTML5, CSS3 (Flexbox/Grid), JavaScript vanilla (sem frameworks pesados), Font Awesome ou ícones SVG, Google Fonts (estilo tech).
+
+Gere o código completo em um único arquivo HTML/CSS/JS, com estilo inline ou separado, mas funcional e autossuficiente. Inclua meta viewport e fallbacks para navegadores.
