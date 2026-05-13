@@ -1,53 +1,701 @@
-Crie um site completo e responsivo para uma rádio online chamada "VIBE HITS" (ou "VIBEHITS RADIO"), com estilo visual cyberpunk + neon + gamer, misturando Spotify e elementos de rádio noturna.
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>VIBE HITS · Rádio Cyberpunk 24/7</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: tech style -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,500;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* só estético, não atrapalha cliques */
+        }
 
-O site deve funcionar perfeitamente em PC e mobile (design fluido, grid flexível, menu adaptado).
+        body {
+            background-color: #05050A;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-### 🎨 Estilo visual:
-- Cores predominantes: preto (#0a0a0a), roxo neon (#b100ff), azul elétrico (#00e5ff), rosa neon (#ff00aa) e ciano glow (#00ffff).
-- Fundo animado: estilo aurora/cyberwave com ondas neon que se movem suavemente.
-- Partículas flutuantes que reagem ao movimento do mouse (rastro ou interação).
-- Equalizador visual (barras animadas em tempo real) na parte superior ou no player.
-- Logo "VIBE HITS" piscando em neon com efeito glow e leve tremor de luz.
-- Ondas sonoras atrás do conteúdo principal.
-- Fundo escuro com gradientes dinâmicos.
+        /* CANVAS para partículas e fundo animado (aurora + reagente) */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* interage com mouse mas não bloqueia cliques */
+        }
 
-### 📱 Áreas obrigatórias no layout:
+        /* camada principal */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 3rem;
+        }
 
-1. **Player ao vivo** – com botão play/pause, volume, indicação "AO VIVO" piscando.
-2. **Tocando agora** – capa do artista, nome da música, nome do artista.
-3. **Feed do Instagram** – grid de 3 a 6 posts recentes (placeholder com imagens falsas).
-4. **Chat ao vivo** – área rolável com mensagens simuladas e campo para novo texto.
-5. **Top Hits** – lista das 5 músicas mais pedidas no momento (com botão "Pedir").
-6. **Locutores** – cards com nome, foto (placeholder) e horário de programa.
-7. **Botão WhatsApp fixo** – flutuante no canto inferior direito, com ícone, que abre link simulado.
-8. **Pedido de música** – formulário simples: nome, música, artista, botão enviar.
-9. **Rádio online 24h** – selo ou texto "24/7" com ícone de transmissão.
+        /* efeito vidro fosco + neon */
+        .glass-card, .player-card, .chat-box, .top-hits-list, .dj-card, .pedido-form {
+            background: rgba(10, 10, 20, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(179, 0, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 229, 255, 0.2);
+            transition: all 0.2s ease;
+        }
 
-### ✨ Efeitos especiais:
-- Logo piscando em neon com CSS keyframes.
-- Equalizador com barras de áudio que "dançam" aleatoriamente (simulação).
-- Partículas de fundo que seguem o mouse (JS leve).
-- Transições suaves, bordas neon, vidro fosco (backdrop-filter blur).
-- Modo escuro automático (já é escuro por padrão).
+        .glass-card:hover {
+            border-color: #00e5ff;
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+        }
 
-### 📱 Responsividade:
-- No mobile: player ao vivo no topo, menus em hambúrguer (ou abas inferiores), chat reduzido ou ocultável, botão WhatsApp maior.
-- Layout em grid: 2 colunas para desktop, 1 coluna para celular.
-- Todos os textos e botões legíveis em qualquer tamanho.
+        /* header neon piscante */
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+        .neon-logo {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #b100ff, #00e5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px #b100ff, 0 0 15px #00e5ff;
+            animation: pulseGlow 1.4s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 2px #b100ff, 0 0 5px #00e5ff; opacity: 0.9; }
+            100% { text-shadow: 0 0 15px #ff00aa, 0 0 25px #00ffff; opacity: 1; }
+        }
+        .slogan {
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.6);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            border-left: 3px solid #ff00aa;
+            font-weight: 500;
+        }
+        .badge-247 {
+            background: #ff00aa20;
+            border: 1px solid #ff00aa;
+            border-radius: 30px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
 
-### 🧠 Funcionalidades mínimas (front-end simulado):
-- O player não precisa de stream real – simular com áudio falso ou apenas interface visual.
-- Botões devem ter hover com glow, cliques com efeito sonoro simulado (opcional).
-- Chat deve permitir enviar mensagens (sem backend, apenas front-end local).
-- Pedido de música envia um alert("Pedido enviado!") ou simula toast.
+        /* grid principal */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        /* player ao vivo + equalizador */
+        .player-card {
+            padding: 1.5rem;
+        }
+        .live-badge {
+            display: inline-block;
+            background-color: #ff0044;
+            border-radius: 30px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            animation: blinkLive 1s infinite;
+        }
+        @keyframes blinkLive {
+            0% { opacity: 1; background: #ff0044; box-shadow: 0 0 0px #ff0044;}
+            50% { opacity: 0.7; background: #ff0077; box-shadow: 0 0 8px #ff00aa;}
+            100% { opacity: 1; background: #ff0044; }
+        }
+        .equalizer-animated {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 60px;
+            margin: 20px 0;
+        }
+        .eq-bar {
+            width: 8px;
+            height: 20px;
+            background: cyan;
+            border-radius: 4px;
+            animation: bounce 0.5s infinite alternate ease-in-out;
+        }
+        @keyframes bounce {
+            0% { height: 12px; background: #b100ff; }
+            100% { height: 48px; background: #00ffff; }
+        }
+        .eq-bar:nth-child(2){ animation-duration: 0.7s; animation-delay: 0.1s; }
+        .eq-bar:nth-child(3){ animation-duration: 0.4s; animation-delay: 0.2s; }
+        .eq-bar:nth-child(4){ animation-duration: 0.6s; animation-delay: 0s; }
+        .eq-bar:nth-child(5){ animation-duration: 0.5s; animation-delay: 0.3s; }
+        .eq-bar:nth-child(6){ animation-duration: 0.8s; animation-delay: 0.1s; }
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0;
+        }
+        .player-controls button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #00e5ff;
+            cursor: pointer;
+            transition: 0.2s;
+            filter: drop-shadow(0 0 5px cyan);
+        }
+        .player-controls button:hover {
+            transform: scale(1.1);
+            color: #ff00aa;
+        }
+        .now-playing {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .track-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        /* chat ao vivo */
+        .chat-box {
+            padding: 1rem;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .chat-input-area input {
+            flex: 1;
+            background: #111122;
+            border: 1px solid #b100ff;
+            padding: 8px 12px;
+            border-radius: 40px;
+            color: white;
+        }
+        .chat-input-area button {
+            background: #b100ff;
+            border: none;
+            padding: 0 15px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+        }
 
-### 🧩 Slogans (use um deles no cabeçalho ou rodapé):
-"A frequência da nova geração." / "Só hit atrás de hit." / "Sua vibe começa aqui."
+        /* Top Hits */
+        .top-hits-list {
+            padding: 1.2rem;
+        }
+        .hit-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(0,229,255,0.2);
+        }
+        .pedir-hit {
+            background: none;
+            border: 1px solid #ff00aa;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            color: #ff00aa;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* Locutores */
+        .dj-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+        .dj-card {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            min-width: 110px;
+        }
+        .dj-avatar {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 5px magenta);
+        }
+        /* feed insta */
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+            margin: 1rem 0;
+        }
+        .insta-post {
+            background: #1a1a2e;
+            aspect-ratio: 1 / 1;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid cyan;
+        }
+        /* whatsapp fixo */
+        .whatsapp-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 20px #25d366;
+            z-index: 999;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .pedido-form {
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .pedido-form input, .pedido-form button {
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            border: none;
+            background: #0f0f1f;
+            color: white;
+        }
+        .pedido-form button {
+            background: linear-gradient(90deg, #b100ff, #00e5ff);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* rodapé */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
 
-### 🖼️ Exemplo de nome exibido:
-"VIBE HITS – Transmitindo energia 24/7"
+        /* responsividade mobile */
+        @media (max-width: 780px) {
+            .container {
+                padding: 1rem;
+            }
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+            .neon-logo {
+                font-size: 2rem;
+            }
+            .logo-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            .player-controls button {
+                font-size: 1.6rem;
+            }
+            .insta-grid {
+                gap: 0.4rem;
+            }
+        }
+        button, .pedir-hit, .chat-input-area button {
+            cursor: pointer;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: cyan;
+        }
+    </style>
+</head>
+<body>
 
-### 🛠️ Tecnologias sugeridas:
-HTML5, CSS3 (Flexbox/Grid), JavaScript vanilla (sem frameworks pesados), Font Awesome ou ícones SVG, Google Fonts (estilo tech).
+<canvas id="canvas-bg"></canvas>
 
-Gere o código completo em um único arquivo HTML/CSS/JS, com estilo inline ou separado, mas funcional e autossuficiente. Inclua meta viewport e fallbacks para navegadores.
+<div class="container">
+    <!-- Header com logo neon piscante -->
+    <div class="logo-area">
+        <div>
+            <div class="neon-logo">VIBE HITS</div>
+            <div style="display: flex; gap: 10px; margin-top: 6px;">
+                <span class="badge-247"><i class="fas fa-broadcast-tower"></i> 24/7 LIVE</span>
+                <span class="badge-247"><i class="fas fa-headphones"></i> Rádio online</span>
+            </div>
+        </div>
+        <div class="slogan">
+            <i class="fas fa-waveform"></i> “A frequência da nova geração.”
+        </div>
+    </div>
+
+    <!-- Player ao vivo + Tocando agora -->
+    <div class="player-card" style="margin-bottom: 1.8rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="live-badge"><i class="fas fa-circle"></i> AO VIVO</span>
+            <span><i class="fas fa-head-side-headphones"></i> 1.2k ouvindo</span>
+        </div>
+        <!-- equalizador animado -->
+        <div class="equalizer-animated">
+            <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        </div>
+        <div class="player-controls">
+            <button id="playPauseBtn"><i class="fas fa-play-circle"></i></button>
+            <button id="volDown"><i class="fas fa-volume-down"></i></button>
+            <button id="volUp"><i class="fas fa-volume-up"></i></button>
+        </div>
+        <div class="now-playing">
+            <img src="https://placehold.co/60x60/1a1a2e/cyan?text=🎧" style="border-radius: 50%; width: 60px; margin-bottom: 6px;" alt="capa">
+            <div class="track-name" id="trackName">TURN UP THE VIBE</div>
+            <div id="artistName">VIBE HITS · DJ NIX</div>
+            <div style="font-size: 0.7rem;"><i class="fas fa-waveform"></i> Transmissão digital</div>
+        </div>
+    </div>
+
+    <!-- Grid 2 colunas: left = Top Hits + Locutores / right = Chat ao vivo -->
+    <div class="grid-2col">
+        <div>
+            <!-- Top Hits -->
+            <div class="top-hits-list" style="margin-bottom: 1.8rem;">
+                <h3><i class="fas fa-fire-flame"></i> TOP HITS 🔥</h3>
+                <div id="topHitsContainer">
+                    <!-- lista populada via js -->
+                </div>
+            </div>
+            <!-- Locutores -->
+            <div class="glass-card" style="padding: 1.2rem;">
+                <h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3>
+                <div class="dj-grid" id="djGrid"></div>
+            </div>
+        </div>
+        <div>
+            <!-- Chat ao vivo -->
+            <div class="chat-box">
+                <h3><i class="fas fa-comments"></i> CHAT AO VIVO</h3>
+                <div class="chat-messages" id="chatMessages">
+                    <div><span style="color:#ff00aa;"><i class="fas fa-user"></i> DJ_Vibe:</span> Alguém aí? 🔥</div>
+                    <div><span style="color:#00e5ff;"><i class="fas fa-user"></i> Lipe:</span> Que som insano!!! 🎶</div>
+                    <div><span style="color:#ff00aa;"><i class="fas fa-user"></i> Aninha:</span> Pedindo música já já</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Mande uma mensagem...">
+                    <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feed Instagram -->
+    <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
+        <h3><i class="fab fa-instagram"></i> @VIBEHITS_RADIO · feed</h3>
+        <div class="insta-grid" id="instaGrid"></div>
+    </div>
+
+    <!-- Pedido de música + formulario -->
+    <div class="pedido-form">
+        <h3><i class="fas fa-music"></i> 📻 PEDIDO DE MÚSICA</h3>
+        <input type="text" id="pedidoNome" placeholder="Seu nome ou @">
+        <input type="text" id="pedidoMusica" placeholder="Música / Artista">
+        <button id="enviarPedido">ENVIAR PEDIDO <i class="fas fa-headphones"></i></button>
+    </div>
+
+    <footer>
+        🌌 VIBE HITS · Transmitindo energia 24/7 · Só hit atrás de hit · Conecte-se na batida
+    </footer>
+</div>
+
+<!-- Botão WhatsApp flutuante -->
+<div class="whatsapp-fixed" id="whatsappBtn">
+    <i class="fab fa-whatsapp"></i>
+</div>
+
+<script>
+    (function() {
+        // ------------------------ PARTÍCULAS E FUNDO AURORA / REAGENTE AO MOUSE ------------------------
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const PARTICLE_COUNT = 120;
+        let mouseX = width/2, mouseY = height/2;
+        
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            initParticles();
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 3 + 1,
+                    baseX: Math.random() * width,
+                    baseY: Math.random() * height,
+                    speedX: (Math.random() - 0.5) * 0.2,
+                    speedY: (Math.random() - 0.5) * 0.2,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    color: `hsla(${Math.random() * 60 + 260}, 90%, 60%, 0.7)`
+                });
+            }
+        }
+        
+        function drawAurora() {
+            const grad = ctx.createLinearGradient(0, 0, width, height);
+            grad.addColorStop(0, '#05001c');
+            grad.addColorStop(0.5, '#0f0b2e');
+            grad.addColorStop(1, '#1a0b2e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, width, height);
+            // ondas neon (cyberwave)
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                const offset = Date.now() * 0.002 + i;
+                for (let x = 0; x < width; x += 20) {
+                    let y = height * 0.3 + Math.sin(x * 0.008 + offset) * 35 + Math.cos(x * 0.02 + i) * 20;
+                    ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = `rgba(0, 229, 255, 0.25)`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+        
+        function drawParticles() {
+            for (let p of particles) {
+                // reage ao mouse: afasta suavemente
+                const dx = p.x - mouseX;
+                const dy = p.y - mouseY;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 100) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (100 - dist) / 100 * 1.2;
+                    p.x += Math.cos(angle) * force;
+                    p.y += Math.sin(angle) * force;
+                } else {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                }
+                // border wrap suave
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#b100ff';
+                ctx.fill();
+            }
+            ctx.shadowBlur = 0;
+        }
+        
+        function animateBg() {
+            if (!ctx) return;
+            drawAurora();
+            drawParticles();
+            requestAnimationFrame(animateBg);
+        }
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        resizeCanvas();
+        animateBg();
+        
+        // ------------------------ SIMULAÇÃO DE RÁDIO ELEMENTOS ------------------------
+        // Player simulado
+        let isPlaying = false;
+        const playBtn = document.getElementById('playPauseBtn');
+        const trackNameSpan = document.getElementById('trackName');
+        const artistSpan = document.getElementById('artistName');
+        const playlist = [
+            { track: "NEON SUPERNOVA", artist: "VIBE HITS CREW" },
+            { track: "FREQUENCY LOVE", artist: "CYBERCAT" },
+            { track: "MIDNIGHT VIBES", artist: "DJ AURORA" },
+            { track: "ELECTRIC DREAMS", artist: "NEON DRIFTER" }
+        ];
+        let currentTrack = 0;
+        
+        function changeTrack() {
+            trackNameSpan.innerText = playlist[currentTrack].track;
+            artistSpan.innerText = playlist[currentTrack].artist;
+        }
+        
+        playBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playBtn.innerHTML = '<i class="fas fa-pause-circle"></i>';
+                // simulacao de troca de musica a cada 20s
+                if(window.trackInterval) clearInterval(window.trackInterval);
+                window.trackInterval = setInterval(() => {
+                    currentTrack = (currentTrack + 1) % playlist.length;
+                    changeTrack();
+                    // msg fake no chat
+                    addSystemMessage(`🎧 Tocando agora: ${playlist[currentTrack].track} - ${playlist[currentTrack].artist}`);
+                }, 20000);
+            } else {
+                playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+                if(window.trackInterval) clearInterval(window.trackInterval);
+            }
+        });
+        
+        // volume fake
+        document.getElementById('volDown').addEventListener('click', () => { alert("🔊 Volume reduzido (simulação)"); });
+        document.getElementById('volUp').addEventListener('click', () => { alert("🔊 Volume aumentado (simulação)"); });
+        
+        // Top Hits + pedidos
+        const topHits = [
+            { nome: "Blinding Lights", artista: "The Weeknd", votos: 512 },
+            { nome: "Flowers", artista: "Miley Cyrus", votos: 489 },
+            { nome: "VIBE HITS ANTHEM", artista: "DJ NIX", votos: 367 },
+            { nome: "Supernova", artista: "Kylie", votos: 298 },
+            { nome: "Levitating", artista: "Dua Lipa", votos: 254 }
+        ];
+        function renderTopHits() {
+            const container = document.getElementById('topHitsContainer');
+            container.innerHTML = '';
+            topHits.forEach((hit, idx) => {
+                const div = document.createElement('div');
+                div.className = 'hit-item';
+                div.innerHTML = `
+                    <div><strong>${idx+1}</strong> ${hit.nome} · ${hit.artista} <span style="color:cyan;">🔥${hit.votos}</span></div>
+                    <button class="pedir-hit" data-musica="${hit.nome} - ${hit.artista}">Pedir</button>
+                `;
+                container.appendChild(div);
+            });
+            document.querySelectorAll('.pedir-hit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const musica = btn.getAttribute('data-musica');
+                    alert(`🎵 Pedido enviado: "${musica}" para a VIBE HITS! 🔥`);
+                    addSystemMessage(`📢 ${musica} foi pedido por alguém no chat!`);
+                });
+            });
+        }
+        renderTopHits();
+        
+        // Locutores
+        const djList = [
+            { nome: "DJ NYX", horario: "20h - 00h", icone: "🎧" },
+            { nome: "MC AURORA", horario: "00h - 04h", icone: "🎤" },
+            { nome: "VIBE SELECTOR", horario: "14h - 18h", icone: "🔊" }
+        ];
+        const djGrid = document.getElementById('djGrid');
+        djList.forEach(dj => {
+            const card = document.createElement('div');
+            card.className = 'dj-card';
+            card.innerHTML = `<div class="dj-avatar">${dj.icone}</div><strong>${dj.nome}</strong><br><small>${dj.horario}</small>`;
+            djGrid.appendChild(card);
+        });
+        
+        // Feed Instagram (simulação com posts)
+        const instaGrid = document.getElementById('instaGrid');
+        for (let i = 0; i < 6; i++) {
+            const post = document.createElement('div');
+            post.className = 'insta-post';
+            const icons = ['🎶','🎧','🔥','💜','🌌','🎵'];
+            post.innerHTML = `<i class="fas fa-music" style="font-size: 2rem; color:cyan;"></i><br><span style="font-size:0.7rem;">vibe.hits</span>`;
+            instaGrid.appendChild(post);
+        }
+        
+        // Chat ao vivo funcional (apenas front)
+        const chatMessagesDiv = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendChatBtn');
+        function addSystemMessage(msg) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color:#00e5ff;"><i class="fas fa-info-circle"></i> Sistema:</span> ${msg}`;
+            chatMessagesDiv.appendChild(div);
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
+        function addUserMessage(nome, texto) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color:#ff00aa;"><i class="fas fa-user"></i> ${nome}:</span> ${texto}`;
+            chatMessagesDiv.appendChild(div);
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
+        sendBtn.addEventListener('click', () => {
+            let msg = chatInput.value.trim();
+            if (msg === "") return;
+            addUserMessage("OUVINTE", msg);
+            chatInput.value = "";
+            // resposta aleatoria simulada (interatividade)
+            setTimeout(() => {
+                if(Math.random() > 0.6) addSystemMessage("DJ curtiu sua mensagem! 🎶");
+            }, 800);
+        });
+        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendBtn.click(); });
+        
+        // pedido de música (form)
+        const enviarPedidoBtn = document.getElementById('enviarPedido');
+        enviarPedidoBtn.addEventListener('click', () => {
+            const nome = document.getElementById('pedidoNome').value.trim() || "Anônimo";
+            const musica = document.getElementById('pedidoMusica').value.trim();
+            if(musica === "") { alert("Digite o nome da música!"); return; }
+            alert(`✨ Pedido enviado, ${nome}! A VIBE HITS tocará "${musica}" em breve!`);
+            addSystemMessage(`📻 ${nome} pediu a música: "${musica}"!`);
+            document.getElementById('pedidoNome').value = "";
+            document.getElementById('pedidoMusica').value = "";
+        });
+        
+        // Botão WhatsApp (simulação)
+        const whatsBtn = document.getElementById('whatsappBtn');
+        whatsBtn.addEventListener('click', () => {
+            alert("📱 WhatsApp: (11) 99999-1234 \nConverse com a gente pelo Zap! (simulação)");
+        });
+        
+        // Inicializa tocando automagicamente uma musica "fake" não tocando som, mas interface
+        changeTrack();
+        // pré-carregar mensagens aleatórias
+        setTimeout(() => {
+            addSystemMessage("🔥 Equilibrador sônico ativado! Peça sua música!");
+        }, 500);
+    })();
+</script>
+</body>
+</html>
