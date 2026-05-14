@@ -31,7 +31,7 @@
             margin: 0 auto;
             padding: 1.5rem 2rem 3rem;
         }
-        /* Glassmorphism padrão desktop */
+        /* Glassmorphism */
         .glass-card, .player-card, .top-hits-list, .dj-card, .schedule-card, .insta-card {
             background: rgba(10, 10, 20, 0.65);
             backdrop-filter: blur(14px);
@@ -90,21 +90,49 @@
         .player-controls button:hover { transform: scale(1.1); color: #ff00aa; }
         .track-name { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #00e5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
         
-        /* Grid sem chat: apenas Top Hits e Programação lado a lado */
+        /* Grid sem chat */
         .grid-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.8rem;
             margin-bottom: 2rem;
         }
-        .top-hits-list { padding: 1.5rem; }
-        .hit-item { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,229,255,0.3); }
-        .hit-votos { color: #00ffcc; font-weight: bold; }
+        
+        /* ========== ESTILOS ESPECÍFICOS PARA TOP HITS (CONTRASTE MELHORADO) ========== */
+        .top-hits-list {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.75); /* fundo mais escuro para contraste */
+        }
+        .hit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+            color: #ffffff; /* texto branco puro */
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .hit-item strong {
+            color: #ff00aa; /* números em rosa neon */
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        .hit-votos {
+            color: #00ffff; /* azul elétrico */
+            font-weight: bold;
+            background: rgba(0, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
         .dj-grid { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; }
         .dj-card { flex: 1; padding: 1rem; text-align: center; background: rgba(0,0,0,0.5); border-radius: 1.5rem; transition: all 0.3s; }
         .dj-card:hover { transform: scale(1.02); border-color: #ff00aa; }
         .schedule-card { padding: 1.2rem; }
-        .schedule-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #00e5ff50; }
+        .schedule-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #00e5ff50; color: white; }
         .insta-card { padding: 1.2rem; }
         .follow-btn { background: linear-gradient(45deg, #b100ff, #00e5ff); border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: bold; margin-top: 12px; cursor: pointer; display: inline-block; }
         .whatsapp-fixed { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px #25d366; z-index: 999; cursor: pointer; }
@@ -123,9 +151,7 @@
                 display: block;
                 padding: 1rem;
             }
-            .container {
-                padding: 0.5rem;
-            }
+            .container { padding: 0.5rem; }
             .radio-body {
                 background: rgba(0, 0, 0, 0.75);
                 backdrop-filter: blur(12px);
@@ -206,17 +232,21 @@
             </div>
             <audio id="radioStream" preload="none" crossorigin="anonymous" src="https://stm16.xcast.com.br:7680/stream"></audio>
         </div>
-        <!-- Grid com duas colunas: Top Hits e Programação (chat removido) -->
+        
+        <!-- Grid com Top Hits (dinâmico) e Programação -->
         <div class="grid-2col">
             <div class="top-hits-list glass-card">
-                <h3><i class="fas fa-chart-simple"></i> 🏆 TOP HITS</h3>
-                <div id="topHitsContainer"></div>
+                <h3><i class="fas fa-chart-simple"></i> 🏆 TOP HITS (BRASIL)</h3>
+                <div id="topHitsContainer">
+                    <div style="text-align: center; color: #ccc;">Carregando as mais tocadas...</div>
+                </div>
             </div>
             <div class="schedule-card glass-card">
                 <h3><i class="fas fa-calendar-week"></i> 📅 PROGRAMAÇÃO DIÁRIA</h3>
                 <div id="scheduleList"></div>
             </div>
         </div>
+
         <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
             <h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3>
             <div class="dj-grid" id="djGrid"></div>
@@ -258,7 +288,7 @@
 
 <script>
     (function() {
-        // Remove overlay de carregamento
+        // ========== REMOVER OVERLAY ==========
         function removeLoading() {
             var overlay = document.getElementById('loadingOverlay');
             if (overlay) {
@@ -269,7 +299,7 @@
         setTimeout(removeLoading, 2000);
         window.addEventListener('load', removeLoading);
 
-        // Fundo animado
+        // ========== FUNDO ANIMADO ==========
         const canvas = document.getElementById('canvas-bg');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -285,7 +315,7 @@
             animateBg();
         }
 
-        // Stream de áudio
+        // ========== STREAM DE ÁUDIO ==========
         const audio = document.getElementById('radioStream');
         const playBtn = document.getElementById('playPauseBtn');
         const mobilePlayBtn = document.getElementById('mobilePlayBtn');
@@ -384,7 +414,7 @@
             } else { mobileEqBars.forEach(bar => { bar.style.height = '20px'; }); }
         }
 
-        // Simular ouvintes desktop
+        // Simular ouvintes
         setInterval(() => {
             if (isPlaying && ouvinteSpan) {
                 let cur = parseInt(ouvinteSpan.innerText);
@@ -395,7 +425,74 @@
             }
         }, 12000);
 
-        // Mobile: slider de frequência
+        // ========== TOP HITS DINÂMICO COM LAST.FM API ==========
+        async function fetchBrazilTopTracks() {
+            const container = document.getElementById('topHitsContainer');
+            if (!container) return;
+            const apiKey = '21da6338dd6b55ba08440ba0b44881ff'; // SUA CHAVE AQUI
+            const url = `https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=brazil&api_key=${apiKey}&format=json&limit=5`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const tracks = data?.tracks?.track;
+                if (tracks && tracks.length > 0) {
+                    container.innerHTML = '';
+                    tracks.forEach((track, index) => {
+                        const artistName = track.artist?.name || 'Artista desconhecido';
+                        const plays = track.playcount ? Number(track.playcount).toLocaleString() : 'N/A';
+                        const trackDiv = document.createElement('div');
+                        trackDiv.className = 'hit-item';
+                        trackDiv.innerHTML = `
+                            <div><strong>${index + 1}</strong> ${track.name} · ${artistName}</div>
+                            <div class="hit-votos">🎧 ${plays}</div>
+                        `;
+                        container.appendChild(trackDiv);
+                    });
+                } else {
+                    container.innerHTML = '<div style="text-align: center; color: #ffaa00;">Nenhuma música encontrada no momento.</div>';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar Top Hits:', error);
+                container.innerHTML = '<div style="text-align: center; color: #ff5555;">Erro ao carregar as mais tocadas. Tente novamente mais tarde.</div>';
+            }
+        }
+        fetchBrazilTopTracks();
+
+        // ========== PROGRAMAÇÃO DIÁRIA ==========
+        const schedule = [
+            { time: "19h", name: "Night Hits com DJ Nyx" },
+            { time: "20h", name: "Flashback · Anos 2000" },
+            { time: "21h", name: "Cyber Mix · Alta voltagem" },
+            { time: "22h", name: "Aurora Beats" }
+        ];
+        const schedDiv = document.getElementById('scheduleList');
+        if (schedDiv) {
+            schedule.forEach(s => {
+                let p = document.createElement('div');
+                p.className = 'schedule-item';
+                p.innerHTML = `<span><i class="fas fa-clock"></i> ${s.time}</span><span>${s.name}</span>`;
+                schedDiv.appendChild(p);
+            });
+        }
+
+        // ========== LOCUTORES ==========
+        const djs = [
+            { nome: "DJ NYX", horario: "20h - 00h", icone: "🎧" },
+            { nome: "MC AURORA", horario: "00h - 04h", icone: "🎤" },
+            { nome: "VIBE SELECTOR", horario: "14h - 18h", icone: "🔊" },
+            { nome: "MISTY D", horario: "08h - 12h", icone: "🎛️" }
+        ];
+        const djGrid = document.getElementById('djGrid');
+        if (djGrid) {
+            djs.forEach(d => {
+                let c = document.createElement('div');
+                c.className = 'dj-card';
+                c.innerHTML = `<div style="font-size:2rem;">${d.icone}</div><strong>${d.nome}</strong><br><small>${d.horario}</small>`;
+                djGrid.appendChild(c);
+            });
+        }
+
+        // ========== MOBILE: SLIDER FREQUÊNCIA ==========
         const freqSlider = document.getElementById('freqSlider');
         const mobileFreq = document.getElementById('mobileFreq');
         const mobileStation = document.getElementById('mobileStation');
@@ -420,59 +517,7 @@
             });
         });
 
-        // Top Hits
-        const topHits = [
-            { nome: "Blinding Lights", artista: "The Weeknd", votos: 512 },
-            { nome: "Flowers", artista: "Miley Cyrus", votos: 489 },
-            { nome: "VIBE HITS ANTHEM", artista: "DJ NIX", votos: 367 },
-            { nome: "Supernova", artista: "Kylie", votos: 298 },
-            { nome: "Levitating", artista: "Dua Lipa", votos: 254 }
-        ];
-        const topCont = document.getElementById('topHitsContainer');
-        if (topCont) {
-            topHits.forEach((h, i) => {
-                let d = document.createElement('div');
-                d.className = 'hit-item';
-                d.innerHTML = `<div><strong>${i+1}</strong> ${h.nome} · ${h.artista}</div><div class="hit-votos">🔥 ${h.votos}</div>`;
-                topCont.appendChild(d);
-            });
-        }
-
-        // Programação diária ATUALIZADA: 19h, 20h, 21h, 22h
-        const schedule = [
-            { time: "19h", name: "Night Hits com DJ Nyx" },
-            { time: "20h", name: "Flashback · Anos 2000" },
-            { time: "21h", name: "Cyber Mix · Alta voltagem" },
-            { time: "22h", name: "Aurora Beats" }
-        ];
-        const schedDiv = document.getElementById('scheduleList');
-        if (schedDiv) {
-            schedule.forEach(s => {
-                let p = document.createElement('div');
-                p.className = 'schedule-item';
-                p.innerHTML = `<span><i class="fas fa-clock"></i> ${s.time}</span><span>${s.name}</span>`;
-                schedDiv.appendChild(p);
-            });
-        }
-
-        // Locutores
-        const djs = [
-            { nome: "DJ NYX", horario: "20h - 00h", icone: "🎧" },
-            { nome: "MC AURORA", horario: "00h - 04h", icone: "🎤" },
-            { nome: "VIBE SELECTOR", horario: "14h - 18h", icone: "🔊" },
-            { nome: "MISTY D", horario: "08h - 12h", icone: "🎛️" }
-        ];
-        const djGrid = document.getElementById('djGrid');
-        if (djGrid) {
-            djs.forEach(d => {
-                let c = document.createElement('div');
-                c.className = 'dj-card';
-                c.innerHTML = `<div style="font-size:2rem;">${d.icone}</div><strong>${d.nome}</strong><br><small>${d.horario}</small>`;
-                djGrid.appendChild(c);
-            });
-        }
-
-        // WhatsApp e Instagram
+        // ========== WHATSAPP E INSTAGRAM ==========
         document.getElementById('whatsappBtn')?.addEventListener('click', () => window.open('https://wa.me/5527997982705', '_blank'));
         document.getElementById('followBtn')?.addEventListener('click', () => window.open('https://www.instagram.com/vibe.cooee', '_blank'));
 
