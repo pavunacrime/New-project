@@ -31,20 +31,21 @@
             margin: 0 auto;
             padding: 1.5rem 2rem 3rem;
         }
-        /* Glassmorphism */
+        /* Glassmorphism refinado */
         .glass-card, .player-card, .top-hits-list, .dj-card, .schedule-card, .insta-card {
-            background: rgba(10, 10, 20, 0.65);
-            backdrop-filter: blur(14px);
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(16px);
             border-radius: 2rem;
-            border: 1px solid rgba(179, 0, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 229, 255, 0.2);
+            border: 1px solid rgba(179, 0, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.2);
             transition: all 0.3s ease;
         }
-        .glass-card:hover {
+        .glass-card:hover, .player-card:hover, .top-hits-list:hover {
             border-color: #00e5ff;
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
-            transform: translateY(-3px);
+            box-shadow: 0 0 28px rgba(0, 229, 255, 0.6);
+            transform: translateY(-4px);
         }
+        /* Logo neon com glitch */
         .neon-logo {
             font-size: 3.5rem;
             font-weight: 800;
@@ -55,6 +56,7 @@
             color: transparent;
             animation: gradientShift 3s ease infinite, float3d 2.2s infinite ease-in-out, textGlowPulse 1.8s infinite alternate;
             display: inline-block;
+            position: relative;
         }
         @keyframes float3d {
             0% { transform: rotateX(0deg) rotateY(0deg) translateZ(0px); letter-spacing: -2px; }
@@ -66,21 +68,18 @@
         @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes textGlowPulse {
             0% { text-shadow: 0 0 2px #b100ff, 0 0 5px #00e5ff; opacity: 0.9; }
-            100% { text-shadow: 0 0 20px #ff00aa, 0 0 30px #00ffff, 0 0 10px #b100ff; opacity: 1; }
+            100% { text-shadow: 0 0 22px #ff00aa, 0 0 35px #00ffff, 0 0 12px #b100ff; opacity: 1; }
         }
-        .badge-247 { background: #ff00aa30; border: 1px solid #ff00aa; border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.8rem; font-weight: bold; }
-        .slogan { font-size: 0.9rem; background: rgba(0,0,0,0.7); padding: 0.4rem 1rem; border-radius: 40px; border-left: 4px solid #ff00aa; }
+        .badge-247 { background: #ff00aa30; border: 1px solid #ff00aa; border-radius: 40px; padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: bold; backdrop-filter: blur(4px); }
+        .slogan { font-size: 0.9rem; background: rgba(0,0,0,0.6); padding: 0.4rem 1rem; border-radius: 40px; border-left: 4px solid #ff00aa; }
         
-        /* ========== LAYOUT DESKTOP ========== */
-        .desktop-layout {
-            display: block;
-        }
+        /* Player premium */
         .player-card { padding: 2rem; margin-bottom: 2rem; }
-        .live-badge { background: #ff0044; border-radius: 30px; padding: 0.3rem 1rem; animation: blinkLive 1s infinite; font-weight: bold; display: inline-block; }
-        @keyframes blinkLive { 0% { opacity: 1; background: #ff0044; } 50% { opacity: 0.7; background: #ff0077; box-shadow: 0 0 15px #ff00aa; } 100% { opacity: 1; background: #ff0044; } }
+        .live-badge { background: #ff0044; border-radius: 40px; padding: 0.3rem 1.2rem; animation: blinkLive 1s infinite; font-weight: bold; display: inline-block; box-shadow: 0 0 10px #ff0044; }
+        @keyframes blinkLive { 0% { opacity: 1; background: #ff0044; } 50% { opacity: 0.8; background: #ff0077; box-shadow: 0 0 18px #ff00aa; } 100% { opacity: 1; background: #ff0044; } }
         .player-center { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0; }
         .vinyl-cover { width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #222, #000); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
-        .vinyl-cover img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid cyan; }
+        .vinyl-cover img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid cyan; object-fit: cover; }
         .rotating { animation: spin 8s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .wave-equalizer { display: flex; justify-content: center; gap: 12px; margin: 20px 0; height: 80px; }
@@ -98,72 +97,77 @@
             margin-bottom: 2rem;
         }
         
-        /* ========== ESTILOS ESPECÍFICOS PARA TOP HITS (CONTRASTE MELHORADO) ========== */
+        /* Top Hits com bom contraste */
         .top-hits-list {
             padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.75); /* fundo mais escuro para contraste */
+            background: rgba(0, 0, 0, 0.75);
         }
         .hit-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 0.9rem 0;
             border-bottom: 1px solid rgba(0, 229, 255, 0.3);
-            color: #ffffff; /* texto branco puro */
+            color: #ffffff;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .hit-item:hover {
+            background: rgba(255, 0, 170, 0.1);
+            padding-left: 6px;
+            border-radius: 12px;
         }
         .hit-item strong {
-            color: #ff00aa; /* números em rosa neon */
-            margin-right: 8px;
+            color: #ff00aa;
+            margin-right: 12px;
             font-size: 1.1rem;
+            background: rgba(255,0,170,0.2);
+            padding: 0 8px;
+            border-radius: 20px;
         }
         .hit-votos {
-            color: #00ffff; /* azul elétrico */
+            color: #00ffff;
             font-weight: bold;
             background: rgba(0, 255, 255, 0.15);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
         }
         
         .dj-grid { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; }
-        .dj-card { flex: 1; padding: 1rem; text-align: center; background: rgba(0,0,0,0.5); border-radius: 1.5rem; transition: all 0.3s; }
-        .dj-card:hover { transform: scale(1.02); border-color: #ff00aa; }
-        .schedule-card { padding: 1.2rem; }
-        .schedule-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #00e5ff50; color: white; }
-        .insta-card { padding: 1.2rem; }
-        .follow-btn { background: linear-gradient(45deg, #b100ff, #00e5ff); border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: bold; margin-top: 12px; cursor: pointer; display: inline-block; }
-        .whatsapp-fixed { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px #25d366; z-index: 999; cursor: pointer; }
-        footer { text-align: center; margin-top: 3rem; font-size: 0.75rem; background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 2rem; backdrop-filter: blur(8px); }
+        .dj-card { flex: 1; padding: 1rem; text-align: center; background: rgba(0,0,0,0.5); border-radius: 1.5rem; transition: all 0.3s; min-width: 120px; }
+        .dj-card:hover { transform: scale(1.02); border-color: #ff00aa; background: rgba(0,0,0,0.7); }
+        .schedule-card { padding: 1.5rem; }
+        .schedule-item { display: flex; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px dashed #00e5ff50; color: white; font-size: 1rem; }
+        .insta-card { padding: 1.5rem; text-align: center; }
+        .follow-btn { background: linear-gradient(45deg, #b100ff, #00e5ff); border: none; padding: 10px 24px; border-radius: 50px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; display: inline-block; transition: 0.2s; }
+        .follow-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #00e5ff; }
+        .whatsapp-fixed { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px #25d366; z-index: 999; cursor: pointer; transition: 0.2s; }
+        .whatsapp-fixed:hover { transform: scale(1.1); }
+        footer { text-align: center; margin-top: 3rem; font-size: 0.75rem; background: rgba(0,0,0,0.6); padding: 1rem; border-radius: 2rem; backdrop-filter: blur(8px); }
 
-        /* ========== LAYOUT MOBILE (RÁDIO ANALÓGICO) ========== */
+        /* ========== LAYOUT MOBILE ANALÓGICO ========== */
         .mobile-radio-layout {
             display: none;
         }
-
         @media (max-width: 768px) {
-            .desktop-layout {
-                display: none;
-            }
-            .mobile-radio-layout {
-                display: block;
-                padding: 1rem;
-            }
+            .desktop-layout { display: none; }
+            .mobile-radio-layout { display: block; padding: 1rem; }
             .container { padding: 0.5rem; }
             .radio-body {
-                background: rgba(0, 0, 0, 0.75);
+                background: rgba(0, 0, 0, 0.85);
                 backdrop-filter: blur(12px);
                 border-radius: 2rem;
                 padding: 1.2rem;
                 border: 1px solid #ff00aa;
-                box-shadow: 0 0 20px rgba(255, 0, 170, 0.3);
+                box-shadow: 0 0 20px rgba(255, 0, 170, 0.4);
             }
             .radio-header { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; color: #00e5ff; margin-bottom: 1rem; }
             .stay-tuned { text-align: center; font-size: 0.8rem; color: #ff00aa; margin: 0.5rem 0; text-transform: uppercase; font-weight: bold; }
             .station-buttons { display: flex; gap: 0.8rem; justify-content: center; margin: 1rem 0; }
-            .station-buttons button { background: #111; border: 1px solid #b100ff; border-radius: 2rem; padding: 0.4rem 1rem; color: cyan; font-weight: bold; font-size: 0.8rem; cursor: pointer; }
+            .station-buttons button { background: #111; border: 1px solid #b100ff; border-radius: 2rem; padding: 0.4rem 1rem; color: cyan; font-weight: bold; font-size: 0.8rem; }
             .freq-display { background: #000000aa; border-radius: 2rem; padding: 0.8rem; text-align: center; margin: 1rem 0; border: 1px solid cyan; box-shadow: 0 0 8px cyan; }
             .freq-number { font-size: 2.5rem; font-weight: bold; font-family: monospace; letter-spacing: 2px; color: #00ffff; }
             .station-name { font-size: 1.2rem; font-weight: bold; color: #ff00aa; }
@@ -181,14 +185,13 @@
             .effect-buttons button { background: #1a1a2e; border: 1px solid #ff00aa; border-radius: 2rem; padding: 0.5rem 1rem; color: white; font-size: 0.7rem; font-weight: bold; display: flex; align-items: center; gap: 6px; cursor: pointer; }
             .player-mobile { display: flex; justify-content: center; gap: 2rem; margin: 1rem 0; }
             .player-mobile button { background: none; border: none; font-size: 2rem; color: cyan; filter: drop-shadow(0 0 5px cyan); cursor: pointer; }
-            .volume-row { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+            .volume-row { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; justify-content: center; }
             footer { font-size: 0.6rem; margin-top: 1rem; }
         }
     </style>
 </head>
 <body>
-<!-- OVERLAY DE CARREGAMENTO -->
-<div id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000000dd; backdrop-filter:blur(10px); z-index:10000; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity 0.8s; pointer-events:none;">
+<div id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000000dd; backdrop-filter:blur(12px); z-index:10000; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity 0.8s; pointer-events:none;">
     <div style="font-size:2rem; font-weight:bold; animation:glitchText 1.2s infinite;">CONECTANDO À VIBE HITS...</div>
     <div style="margin-top:20px;"><i class="fas fa-headphones fa-3x" style="color:cyan;"></i></div>
 </div>
@@ -202,18 +205,20 @@
 
 <canvas id="canvas-bg"></canvas>
 <div class="container">
-    <!-- LAYOUT DESKTOP (SEM CHAT) -->
+    <!-- LAYOUT DESKTOP -->
     <div class="desktop-layout">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 2rem;">
             <div><div class="neon-logo">VIBE HITS</div></div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <span class="badge-247"><i class="fas fa-broadcast-tower"></i> 24/7 LIVE</span>
                 <span class="badge-247"><i class="fas fa-headphones"></i> Rádio online</span>
                 <span class="slogan"><i class="fas fa-waveform"></i> “Só hit atrás de hit.”</span>
             </div>
         </div>
+        
+        <!-- Player -->
         <div class="player-card">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                 <span class="live-badge"><i class="fas fa-circle"></i> AO VIVO</span>
                 <span><i class="fas fa-user-friends"></i> <span id="ouvinteCount">1.8k</span> ouvindo</span>
             </div>
@@ -232,13 +237,13 @@
             </div>
             <audio id="radioStream" preload="none" crossorigin="anonymous" src="https://stm16.xcast.com.br:7680/stream"></audio>
         </div>
-        
-        <!-- Grid com Top Hits (dinâmico) e Programação -->
+
+        <!-- Grid principal -->
         <div class="grid-2col">
             <div class="top-hits-list glass-card">
                 <h3><i class="fas fa-chart-simple"></i> 🏆 TOP HITS (BRASIL)</h3>
                 <div id="topHitsContainer">
-                    <div style="text-align: center; color: #ccc;">Carregando as mais tocadas...</div>
+                    <div style="text-align: center; padding: 20px; color: #aaa;">Carregando as mais tocadas...</div>
                 </div>
             </div>
             <div class="schedule-card glass-card">
@@ -247,20 +252,28 @@
             </div>
         </div>
 
-        <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
+        <!-- Locutores -->
+        <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem;">
             <h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3>
             <div class="dj-grid" id="djGrid"></div>
         </div>
-        <div class="insta-card glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
-            <h3><i class="fab fa-instagram"></i> @radio.vibehits · feed</h3>
+
+        <!-- Instagram Feed -->
+        <div class="insta-card glass-card">
+            <h3><i class="fab fa-instagram"></i> @vibe.cooee · feed</h3>
             <div data-key="Carrossel Instagram Feed " class="ft" id="fteq61d8vh"></div>
             <script src="https://wdg.fouita.com/widgets/0x46c917.js"></script>
-            <div style="text-align: center; margin-top: 15px;"><button class="follow-btn" id="followBtn"><i class="fab fa-instagram"></i> Seguir no Instagram</button></div>
+            <div><button class="follow-btn" id="followBtn"><i class="fab fa-instagram"></i> Seguir no Instagram</button></div>
         </div>
-        <footer><i class="fas fa-crown"></i> Dona do site: <strong>Ana Paula de Amorim Lopes Kester Cardozo</strong> &nbsp;|&nbsp;<i class="fas fa-code"></i> Desenvolvedor: <strong>Ricael Santos da Silva</strong><br>🌌 VIBE HITS · Transmitindo energia 24/7</footer>
+        
+        <footer>
+            <i class="fas fa-crown"></i> Dona do site: <strong>Ana Paula de Amorim Lopes Kester Cardozo</strong> &nbsp;|&nbsp;
+            <i class="fas fa-code"></i> Desenvolvedor: <strong>Ricael Santos da Silva</strong><br>
+            🌌 VIBE HITS · Transmitindo energia 24/7 · Conecte-se na batida
+        </footer>
     </div>
 
-    <!-- LAYOUT MOBILE (INALTERADO) -->
+    <!-- LAYOUT MOBILE (Rádio Analógico) -->
     <div class="mobile-radio-layout">
         <div class="radio-body">
             <div class="radio-header"><span>Hi</span><span>Parth</span></div>
@@ -270,7 +283,7 @@
             <div class="band-selector"><button class="band-btn active" data-band="FM">FM</button><button class="band-btn" data-band="AM">AM</button></div>
             <input type="range" id="freqSlider" class="freq-slider" min="87.5" max="108" step="0.1" value="93.5">
             <div class="equalizer"><div style="text-align:center; font-size:0.8rem; margin-bottom:8px;">EQUALIZER</div>
-                <div class="eq-row" id="mobileEq">
+                <div class="eq-row">
                     <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">64Hz</div></div>
                     <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">800Hz</div></div>
                     <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">4kHz</div></div>
@@ -284,16 +297,17 @@
         <footer><i class="fas fa-crown"></i> Ana Paula de Amorim Lopes Kester Cardozo | Desenvolvedor: Ricael Santos da Silva</footer>
     </div>
 </div>
+
 <div class="whatsapp-fixed" id="whatsappBtn"><i class="fab fa-whatsapp"></i></div>
 
 <script>
     (function() {
-        // ========== REMOVER OVERLAY ==========
+        // REMOVER OVERLAY COM SEGURANÇA
         function removeLoading() {
-            var overlay = document.getElementById('loadingOverlay');
+            const overlay = document.getElementById('loadingOverlay');
             if (overlay) {
                 overlay.style.opacity = '0';
-                setTimeout(function() { overlay.style.display = 'none'; }, 800);
+                setTimeout(() => overlay.style.display = 'none', 800);
             }
         }
         setTimeout(removeLoading, 2000);
@@ -315,7 +329,7 @@
             animateBg();
         }
 
-        // ========== STREAM DE ÁUDIO ==========
+        // ========== ÁUDIO E PLAYER ==========
         const audio = document.getElementById('radioStream');
         const playBtn = document.getElementById('playPauseBtn');
         const mobilePlayBtn = document.getElementById('mobilePlayBtn');
@@ -337,12 +351,12 @@
                 startCoverRotation(true);
                 startMobileEqAnimation(true);
             }).catch(() => {
-                alert("Stream offline? Tente novamente mais tarde.");
+                alert("Não foi possível conectar ao stream. Tente novamente.");
                 isPlaying = false;
                 if (playBtn) playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
                 if (mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
-                if (trackSpan) trackSpan.innerText = "Pausado";
-                if (mobileTrackInfo) mobileTrackInfo.innerText = "⏸ Pausado - Clique no Play";
+                if (trackSpan) trackSpan.innerText = "Stream offline";
+                if (mobileTrackInfo) mobileTrackInfo.innerText = "⏸ Stream offline";
                 startEqualizerAnimation(false);
                 startCoverRotation(false);
                 startMobileEqAnimation(false);
@@ -382,13 +396,12 @@
             if (active) {
                 eqInterval = setInterval(() => {
                     if (isPlaying) {
-                        bars.forEach(bar => { let h = Math.floor(Math.random() * 55) + 15; bar.style.height = h + 'px'; bar.style.boxShadow = `0 0 ${8 + (h / 80) * 12}px cyan`; });
+                        bars.forEach(bar => { let h = Math.floor(Math.random() * 55) + 15; bar.style.height = h + 'px'; bar.style.boxShadow = `0 0 ${8 + (h/80)*12}px cyan`; });
                     } else { bars.forEach(bar => { bar.style.height = '16px'; bar.style.boxShadow = '0 0 4px cyan'; }); }
                 }, 100);
             } else { bars.forEach(bar => { bar.style.height = '16px'; bar.style.boxShadow = '0 0 4px cyan'; }); }
         }
 
-        // Capa giratória
         const coverImg = document.getElementById('coverImg');
         let rotationInterval = null;
         function startCoverRotation(rotate) {
@@ -397,11 +410,10 @@
                 coverImg.classList.add('rotating');
                 const covers = ["https://placehold.co/200x200/1a1a2e/cyan?text=VIBE", "https://placehold.co/200x200/2a0a3e/ff00aa?text=HITS", "https://placehold.co/200x200/0a2a3e/00e5ff?text=RADIO"];
                 let idx = 0;
-                rotationInterval = setInterval(() => { if (isPlaying) { idx = (idx + 1) % covers.length; coverImg.src = covers[idx]; } }, 5000);
+                rotationInterval = setInterval(() => { if (isPlaying) { idx = (idx+1)%covers.length; coverImg.src = covers[idx]; } }, 5000);
             } else { if (coverImg) { coverImg.classList.remove('rotating'); coverImg.src = "https://placehold.co/200x200/1a1a2e/cyan?text=PAUSE"; } }
         }
 
-        // Equalizador mobile
         const mobileEqBars = document.querySelectorAll('.eq-bar-anim');
         let mobileEqInterval = null;
         function startMobileEqAnimation(active) {
@@ -425,11 +437,11 @@
             }
         }, 12000);
 
-        // ========== TOP HITS DINÂMICO COM LAST.FM API ==========
+        // ========== TOP HITS COM API LAST.FM (SUA CHAVE) ==========
         async function fetchBrazilTopTracks() {
             const container = document.getElementById('topHitsContainer');
             if (!container) return;
-            const apiKey = '21da6338dd6b55ba08440ba0b44881ff'; // SUA CHAVE AQUI
+            const apiKey = '21da6338dd6b55ba08440ba0b44881ff';
             const url = `https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=brazil&api_key=${apiKey}&format=json&limit=5`;
             try {
                 const response = await fetch(url);
@@ -439,7 +451,7 @@
                     container.innerHTML = '';
                     tracks.forEach((track, index) => {
                         const artistName = track.artist?.name || 'Artista desconhecido';
-                        const plays = track.playcount ? Number(track.playcount).toLocaleString() : 'N/A';
+                        let plays = track.playcount ? Number(track.playcount).toLocaleString() : 'N/A';
                         const trackDiv = document.createElement('div');
                         trackDiv.className = 'hit-item';
                         trackDiv.innerHTML = `
@@ -449,16 +461,16 @@
                         container.appendChild(trackDiv);
                     });
                 } else {
-                    container.innerHTML = '<div style="text-align: center; color: #ffaa00;">Nenhuma música encontrada no momento.</div>';
+                    container.innerHTML = '<div style="text-align: center; padding: 20px; color: #ffaa55;">Nenhuma música encontrada no momento. Tente novamente mais tarde.</div>';
                 }
             } catch (error) {
-                console.error('Erro ao carregar Top Hits:', error);
-                container.innerHTML = '<div style="text-align: center; color: #ff5555;">Erro ao carregar as mais tocadas. Tente novamente mais tarde.</div>';
+                console.error('Erro no Last.fm:', error);
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #ff7777;">Erro ao carregar as mais tocadas. Verifique sua conexão.</div>';
             }
         }
         fetchBrazilTopTracks();
 
-        // ========== PROGRAMAÇÃO DIÁRIA ==========
+        // ========== PROGRAMAÇÃO ==========
         const schedule = [
             { time: "19h", name: "Night Hits com DJ Nyx" },
             { time: "20h", name: "Flashback · Anos 2000" },
@@ -468,7 +480,7 @@
         const schedDiv = document.getElementById('scheduleList');
         if (schedDiv) {
             schedule.forEach(s => {
-                let p = document.createElement('div');
+                const p = document.createElement('div');
                 p.className = 'schedule-item';
                 p.innerHTML = `<span><i class="fas fa-clock"></i> ${s.time}</span><span>${s.name}</span>`;
                 schedDiv.appendChild(p);
@@ -485,24 +497,24 @@
         const djGrid = document.getElementById('djGrid');
         if (djGrid) {
             djs.forEach(d => {
-                let c = document.createElement('div');
+                const c = document.createElement('div');
                 c.className = 'dj-card';
                 c.innerHTML = `<div style="font-size:2rem;">${d.icone}</div><strong>${d.nome}</strong><br><small>${d.horario}</small>`;
                 djGrid.appendChild(c);
             });
         }
 
-        // ========== MOBILE: SLIDER FREQUÊNCIA ==========
+        // ========== MOBILE SLIDER ==========
         const freqSlider = document.getElementById('freqSlider');
         const mobileFreq = document.getElementById('mobileFreq');
         const mobileStation = document.getElementById('mobileStation');
         const bandBtns = document.querySelectorAll('.band-btn');
         if (freqSlider) {
             freqSlider.addEventListener('input', (e) => {
-                let val = e.target.value;
+                const val = e.target.value;
                 if (mobileFreq) mobileFreq.innerText = val;
-                let stations = { "87.5": "Rádio Cidade", "93.5": "Red FM", "98.1": "Jovem Pan", "101.3": "Mix FM", "105.7": "Antena 1", "108": "Vibe Hits" };
-                let closest = Object.keys(stations).reduce((a, b) => Math.abs(b - val) < Math.abs(a - val) ? b : a);
+                const stations = { "87.5": "Rádio Cidade", "93.5": "Red FM", "98.1": "Jovem Pan", "101.3": "Mix FM", "105.7": "Antena 1", "108": "Vibe Hits" };
+                const closest = Object.keys(stations).reduce((a,b) => Math.abs(b - val) < Math.abs(a - val) ? b : a);
                 if (mobileStation) mobileStation.innerText = stations[closest] || "VIBE HITS";
             });
         }
