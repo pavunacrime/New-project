@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>VIBE HITS · Rádio Cyberpunk</title>
+    <title>VIBE HITS · Rádio Retrô Cyber</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,6 +15,7 @@
             overflow-x: hidden;
             position: relative;
         }
+        /* Fundo animado comum */
         #canvas-bg {
             position: fixed;
             top: 0;
@@ -31,7 +32,7 @@
             margin: 0 auto;
             padding: 1.5rem 2rem 3rem;
         }
-        /* glassmorphism forte */
+        /* Glassmorphism padrão desktop */
         .glass-card, .player-card, .top-hits-list, .dj-card, .chat-box, .schedule-card, .insta-card {
             background: rgba(10, 10, 20, 0.65);
             backdrop-filter: blur(14px);
@@ -45,7 +46,7 @@
             box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
             transform: translateY(-3px);
         }
-        /* logo neon */
+        /* Logo neon */
         .neon-logo {
             font-size: 3.5rem;
             font-weight: 800;
@@ -72,125 +73,27 @@
         .badge-247 { background: #ff00aa30; border: 1px solid #ff00aa; border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.8rem; font-weight: bold; }
         .slogan { font-size: 0.9rem; background: rgba(0,0,0,0.7); padding: 0.4rem 1rem; border-radius: 40px; border-left: 4px solid #ff00aa; }
         
-        /* PLAYER PRINCIPAL - CENTRALIZADO COM EQUALIZADOR E CAPA GIRATÓRIA */
-        .player-card {
-            padding: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
+        /* ========== LAYOUT DESKTOP (ORIGINAL) ========== */
+        .desktop-layout {
+            display: block;
         }
-        .live-badge {
-            background: #ff0044;
-            border-radius: 30px;
-            padding: 0.3rem 1rem;
-            animation: blinkLive 1s infinite;
-            font-weight: bold;
-            display: inline-block;
-        }
-        @keyframes blinkLive {
-            0% { opacity: 1; background: #ff0044; box-shadow: 0 0 0 #ff0044; }
-            50% { opacity: 0.7; background: #ff0077; box-shadow: 0 0 15px #ff00aa; }
-            100% { opacity: 1; background: #ff0044; }
-        }
-        /* Área central do player: equalizador e capa */
-        .player-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        /* capa giratória com glow */
-        .vinyl-cover {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #222, #000);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6), 0 0 15px #ff00aa;
-            transition: box-shadow 0.3s;
-        }
-        .vinyl-cover img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid cyan;
-        }
-        .rotating {
-            animation: spin 8s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        /* equalizador central em formato de ondas circulares ou barras simétricas */
-        .wave-equalizer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin: 20px 0;
-            height: 80px;
-        }
-        .wave-bar {
-            width: 10px;
-            background: linear-gradient(to top, #b100ff, #00ffff);
-            border-radius: 10px;
-            transition: height 0.08s linear;
-            box-shadow: 0 0 8px cyan;
-        }
-        /* glow pulsante ao redor do equalizador */
-        .glow-ring {
-            position: relative;
-            display: inline-block;
-            padding: 10px;
-            border-radius: 60px;
-            animation: pulseGlow 1.2s infinite alternate;
-        }
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 5px cyan; box-shadow: 0 0 5px cyan; }
-            100% { text-shadow: 0 0 20px #ff00aa; box-shadow: 0 0 25px #ff00aa; }
-        }
-        
-        .player-controls {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            margin: 20px 0 10px;
-        }
-        .player-controls button {
-            background: none;
-            border: none;
-            font-size: 2.5rem;
-            color: #00e5ff;
-            cursor: pointer;
-            transition: 0.2s;
-            filter: drop-shadow(0 0 8px cyan);
-        }
+        .player-card { padding: 2rem; margin-bottom: 2rem; }
+        .live-badge { background: #ff0044; border-radius: 30px; padding: 0.3rem 1rem; animation: blinkLive 1s infinite; font-weight: bold; display: inline-block; }
+        @keyframes blinkLive { 0% { opacity: 1; background: #ff0044; } 50% { opacity: 0.7; background: #ff0077; box-shadow: 0 0 15px #ff00aa; } 100% { opacity: 1; background: #ff0044; } }
+        .player-center { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0; }
+        .vinyl-cover { width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #222, #000); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
+        .vinyl-cover img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid cyan; }
+        .rotating { animation: spin 8s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .wave-equalizer { display: flex; justify-content: center; gap: 12px; margin: 20px 0; height: 80px; }
+        .wave-bar { width: 10px; background: linear-gradient(to top, #b100ff, #00ffff); border-radius: 10px; transition: height 0.08s linear; box-shadow: 0 0 8px cyan; }
+        .player-controls { display: flex; justify-content: center; gap: 35px; margin: 20px 0; }
+        .player-controls button { background: none; border: none; font-size: 2.5rem; color: #00e5ff; cursor: pointer; transition: 0.2s; filter: drop-shadow(0 0 8px cyan); }
         .player-controls button:hover { transform: scale(1.1); color: #ff00aa; }
-        .now-playing {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .track-name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #00e5ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .artist-name { font-size: 1rem; opacity: 0.9; margin-top: 5px; }
-        
-        /* demais seções (mantidas) */
+        .track-name { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #00e5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; margin-bottom: 2rem; }
         .top-hits-list { padding: 1.5rem; }
-        .hit-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,229,255,0.3); }
+        .hit-item { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,229,255,0.3); }
         .hit-votos { color: #00ffcc; font-weight: bold; }
         .dj-grid { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; }
         .dj-card { flex: 1; padding: 1rem; text-align: center; background: rgba(0,0,0,0.5); border-radius: 1.5rem; transition: all 0.3s; }
@@ -202,81 +105,320 @@
         .chat-input-area button { background: #b100ff; border: none; padding: 0 15px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; }
         .schedule-card { padding: 1.2rem; }
         .schedule-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #00e5ff50; }
-        .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin: 1rem 0; }
-        .insta-post { background: #1a1a2e; aspect-ratio: 1/1; border-radius: 1.2rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 1px solid cyan; transition: 0.2s; cursor: pointer; }
-        .insta-post:hover { border-color: #ff00aa; transform: scale(1.02); box-shadow: 0 0 15px #ff00aa; }
-        .follow-btn { background: linear-gradient(45deg, #b100ff, #00e5ff); border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: bold; margin-top: 8px; cursor: pointer; }
+        .insta-card { padding: 1.2rem; }
+        .follow-btn { background: linear-gradient(45deg, #b100ff, #00e5ff); border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: bold; margin-top: 12px; cursor: pointer; display: inline-block; }
         .whatsapp-fixed { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 20px #25d366; z-index: 999; cursor: pointer; }
         footer { text-align: center; margin-top: 3rem; font-size: 0.75rem; background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 2rem; backdrop-filter: blur(8px); }
-        @media (max-width: 780px) { .container { padding: 1rem; } .grid-2col { grid-template-columns: 1fr; } .neon-logo { font-size: 2rem; } .track-name { font-size: 1.2rem; } .vinyl-cover { width: 100px; height: 100px; } .vinyl-cover img { width: 75px; height: 75px; } .wave-bar { width: 6px; } }
-        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000dd; backdrop-filter: blur(10px); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: 1s; }
-        .loading-text { font-size: 2rem; font-weight: bold; animation: glitchText 1.2s infinite; }
-        @keyframes glitchText { 0% { text-shadow: -2px 0 #ff00aa, 2px 0 #00e5ff; } 50% { text-shadow: 2px 0 #ff00aa, -2px 0 #00e5ff; } 100% { text-shadow: -2px 0 #00e5ff, 2px 0 #ff00aa; } }
+
+        /* ========== LAYOUT MOBILE IGUAL À IMAGEM ========== */
+        .mobile-radio-layout {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-layout {
+                display: none;
+            }
+            .mobile-radio-layout {
+                display: block;
+                padding: 1rem;
+            }
+            .container {
+                padding: 0.5rem;
+            }
+            /* Estilo retrô analógico */
+            .radio-body {
+                background: rgba(0, 0, 0, 0.75);
+                backdrop-filter: blur(12px);
+                border-radius: 2rem;
+                padding: 1.2rem;
+                border: 1px solid #ff00aa;
+                box-shadow: 0 0 20px rgba(255, 0, 170, 0.3);
+            }
+            .radio-header {
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #00e5ff;
+                margin-bottom: 1rem;
+                letter-spacing: 1px;
+            }
+            .stay-tuned {
+                text-align: center;
+                font-size: 0.8rem;
+                color: #ff00aa;
+                margin: 0.5rem 0;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            .station-buttons {
+                display: flex;
+                gap: 0.8rem;
+                justify-content: center;
+                margin: 1rem 0;
+            }
+            .station-buttons button {
+                background: #111;
+                border: 1px solid #b100ff;
+                border-radius: 2rem;
+                padding: 0.4rem 1rem;
+                color: cyan;
+                font-weight: bold;
+                font-size: 0.8rem;
+                cursor: pointer;
+            }
+            .freq-display {
+                background: #000000aa;
+                border-radius: 2rem;
+                padding: 0.8rem;
+                text-align: center;
+                margin: 1rem 0;
+                border: 1px solid cyan;
+                box-shadow: 0 0 8px cyan;
+            }
+            .freq-number {
+                font-size: 2.5rem;
+                font-weight: bold;
+                font-family: monospace;
+                letter-spacing: 2px;
+                color: #00ffff;
+            }
+            .station-name {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #ff00aa;
+            }
+            .band-selector {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin: 1rem 0;
+            }
+            .band-btn {
+                background: none;
+                border: 1px solid cyan;
+                border-radius: 30px;
+                padding: 0.3rem 1.5rem;
+                color: cyan;
+                font-weight: bold;
+            }
+            .band-btn.active {
+                background: cyan;
+                color: black;
+                box-shadow: 0 0 12px cyan;
+            }
+            .freq-slider {
+                width: 100%;
+                margin: 1rem 0;
+                accent-color: #ff00aa;
+            }
+            .equalizer {
+                background: #00000066;
+                border-radius: 1.5rem;
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            .eq-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            .eq-band {
+                text-align: center;
+                flex: 1;
+            }
+            .eq-bar-visual {
+                height: 60px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-end;
+            }
+            .eq-bar-anim {
+                width: 100%;
+                background: linear-gradient(to top, #b100ff, #00ffff);
+                border-radius: 8px;
+                transition: height 0.1s;
+                height: 20px;
+            }
+            .eq-label {
+                font-size: 0.7rem;
+                margin-top: 6px;
+                color: #ccc;
+            }
+            .effect-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+                justify-content: center;
+                margin: 1.5rem 0;
+            }
+            .effect-buttons button {
+                background: #1a1a2e;
+                border: 1px solid #ff00aa;
+                border-radius: 2rem;
+                padding: 0.5rem 1rem;
+                color: white;
+                font-size: 0.7rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .player-mobile {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin: 1rem 0;
+            }
+            .player-mobile button {
+                background: none;
+                border: none;
+                font-size: 2rem;
+                color: cyan;
+                filter: drop-shadow(0 0 5px cyan);
+            }
+            .volume-row {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+            .whatsapp-mobile {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #25D366;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.6rem;
+                z-index: 999;
+            }
+            footer {
+                font-size: 0.6rem;
+                margin-top: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div id="loadingOverlay"><div class="loading-text">CONECTANDO À VIBE HITS...</div><div style="margin-top:20px;"><i class="fas fa-headphones fa-3x" style="color:cyan;"></i></div></div>
+<div id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000000dd; backdrop-filter:blur(10px); z-index:1000; display:flex; align-items:center; justify-content:center; flex-direction:column; transition:1s;">
+    <div style="font-size:2rem; font-weight:bold; animation:glitchText 1.2s infinite;">CONECTANDO À VIBE HITS...</div>
+    <div style="margin-top:20px;"><i class="fas fa-headphones fa-3x" style="color:cyan;"></i></div>
+</div>
 <canvas id="canvas-bg"></canvas>
 <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-        <div><div class="neon-logo">VIBE HITS</div></div>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <span class="badge-247"><i class="fas fa-broadcast-tower"></i> 24/7 LIVE</span>
-            <span class="badge-247"><i class="fas fa-headphones"></i> Rádio online</span>
-            <span class="slogan"><i class="fas fa-waveform"></i> “Só hit atrás de hit.”</span>
-        </div>
-    </div>
-
-    <!-- PLAYER PREMIUM COM EQUALIZADOR CENTRAL E CAPA GIRATÓRIA -->
-    <div class="player-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <span class="live-badge"><i class="fas fa-circle"></i> AO VIVO</span>
-            <span><i class="fas fa-user-friends"></i> <span id="ouvinteCount">1.8k</span> ouvindo</span>
-        </div>
-        <div class="player-center">
-            <!-- CAPA GIRATÓRIA COM GLOW -->
-            <div class="vinyl-cover" id="vinylCover">
-                <img id="coverImg" src="https://placehold.co/200x200/1a1a2e/cyan?text=VIBE" alt="capa">
+    <!-- LAYOUT DESKTOP (original) -->
+    <div class="desktop-layout">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <div><div class="neon-logo">VIBE HITS</div></div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <span class="badge-247"><i class="fas fa-broadcast-tower"></i> 24/7 LIVE</span>
+                <span class="badge-247"><i class="fas fa-headphones"></i> Rádio online</span>
+                <span class="slogan"><i class="fas fa-waveform"></i> “Só hit atrás de hit.”</span>
             </div>
-            <!-- EQUALIZADOR CENTRAL (ondas/barras) -->
-            <div class="wave-equalizer" id="waveEqualizer"></div>
-            <!-- glow opcional ao redor -->
-            <div class="glow-ring" style="position: absolute; pointer-events: none; width: 80%; height: 100px; opacity: 0.5;"></div>
         </div>
-        <div class="player-controls">
-            <button id="playPauseBtn"><i class="fas fa-play-circle"></i></button>
-            <button id="volDown"><i class="fas fa-volume-down"></i></button>
-            <button id="volUp"><i class="fas fa-volume-up"></i></button>
+        <div class="player-card">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span class="live-badge"><i class="fas fa-circle"></i> AO VIVO</span>
+                <span><i class="fas fa-user-friends"></i> <span id="ouvinteCount">1.8k</span> ouvindo</span>
+            </div>
+            <div class="player-center">
+                <div class="vinyl-cover" id="vinylCover"><img id="coverImg" src="https://placehold.co/200x200/1a1a2e/cyan?text=VIBE" alt="capa"></div>
+                <div class="wave-equalizer" id="waveEqualizer"></div>
+            </div>
+            <div class="player-controls">
+                <button id="playPauseBtn"><i class="fas fa-play-circle"></i></button>
+                <button id="volDown"><i class="fas fa-volume-down"></i></button>
+                <button id="volUp"><i class="fas fa-volume-up"></i></button>
+            </div>
+            <div class="now-playing" style="text-align: center; margin-top: 10px;">
+                <div class="track-name" id="trackName">Carregando...</div>
+                <div class="artist-name" id="artistName">VIBE HITS · Ao vivo</div>
+            </div>
+            <audio id="radioStream" preload="none" crossorigin="anonymous" src="https://stm16.xcast.com.br:7680/stream"></audio>
         </div>
-        <div class="now-playing">
-            <div class="track-name" id="trackName">Carregando...</div>
-            <div class="artist-name" id="artistName">VIBE HITS · Ao vivo</div>
+        <div class="grid-2col">
+            <div><div class="top-hits-list glass-card" style="margin-bottom: 1.8rem;"><h3><i class="fas fa-chart-simple"></i> 🏆 TOP HITS</h3><div id="topHitsContainer"></div></div>
+            <div class="schedule-card glass-card"><h3><i class="fas fa-calendar-week"></i> 📅 PROGRAMAÇÃO</h3><div id="scheduleList"></div></div></div>
+            <div><div class="chat-box glass-card"><h3><i class="fas fa-comments"></i> 💬 CHAT AO VIVO</h3><div class="chat-messages" id="chatMessages"><div><span style="color:#ff00aa;"><i class="fas fa-user"></i> Sistema:</span> Conectado à VIBE HITS!</div><div><span style="color:#00e5ff;"><i class="fas fa-user"></i> DJ Nix:</span> Alguém na área? 🔥</div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="Mande uma mensagem..."><button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button></div></div></div>
         </div>
-        <audio id="radioStream" preload="none" crossorigin="anonymous" src="https://stm16.xcast.com.br:7680/stream"></audio>
+        <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;"><h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3><div class="dj-grid" id="djGrid"></div></div>
+        <div class="insta-card glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;">
+            <h3><i class="fab fa-instagram"></i> @radio.vibehits · feed</h3>
+            <div data-key="Carrossel Instagram Feed " class="ft" id="fteq61d8vh"></div>
+            <script src="https://wdg.fouita.com/widgets/0x46c917.js"></script>
+            <div style="text-align: center; margin-top: 15px;"><button class="follow-btn" id="followBtn"><i class="fab fa-instagram"></i> Seguir no Instagram</button></div>
+        </div>
+        <footer><i class="fas fa-crown"></i> Dona do site: <strong>Ana Paula de Amorim Lopes Kester Cardozo</strong> &nbsp;|&nbsp;<i class="fas fa-code"></i> Desenvolvedor: <strong>Ricael Santos da Silva</strong><br>🌌 VIBE HITS · Transmitindo energia 24/7</footer>
     </div>
 
-    <div class="grid-2col">
-        <div>
-            <div class="top-hits-list glass-card" style="margin-bottom: 1.8rem;"><h3><i class="fas fa-chart-simple"></i> 🏆 TOP HITS</h3><div id="topHitsContainer"></div></div>
-            <div class="schedule-card glass-card"><h3><i class="fas fa-calendar-week"></i> 📅 PROGRAMAÇÃO</h3><div id="scheduleList"></div></div>
+    <!-- LAYOUT MOBILE IGUAL À IMAGEM (RÁDIO ANALÓGICO) -->
+    <div class="mobile-radio-layout">
+        <div class="radio-body">
+            <div class="radio-header">
+                <span>Hi</span>
+                <span>Parth</span>
+            </div>
+            <div class="stay-tuned">Stay tuned...</div>
+            <div class="station-buttons">
+                <button>Favorites</button>
+                <button>New Station</button>
+                <button>All Station</button>
+            </div>
+            <div class="freq-display">
+                <div class="freq-number" id="mobileFreq">93.5</div>
+                <div class="station-name" id="mobileStation">Red FM</div>
+            </div>
+            <div class="band-selector">
+                <button class="band-btn active" data-band="FM">FM</button>
+                <button class="band-btn" data-band="AM">AM</button>
+            </div>
+            <input type="range" id="freqSlider" class="freq-slider" min="87.5" max="108" step="0.1" value="93.5">
+            <div class="equalizer">
+                <div style="text-align:center; font-size:0.8rem; margin-bottom:8px;">EQUALIZER</div>
+                <div class="eq-row" id="mobileEq">
+                    <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">64Hz</div></div>
+                    <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">800Hz</div></div>
+                    <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">4kHz</div></div>
+                    <div class="eq-band"><div class="eq-bar-visual"><div class="eq-bar-anim" style="height:20px;"></div></div><div class="eq-label">14kHz</div></div>
+                </div>
+            </div>
+            <div class="effect-buttons">
+                <button><i class="fas fa-microphone-alt"></i> Noise Reduction</button>
+                <button><i class="fas fa-sliders-h"></i> Auto Equalizer</button>
+                <button><i class="fas fa-volume-up"></i> Auto Volume</button>
+            </div>
+            <!-- player mobile com stream real -->
+            <div class="player-mobile">
+                <button id="mobilePlayBtn"><i class="fas fa-play-circle"></i></button>
+                <button id="mobileVolDown"><i class="fas fa-volume-down"></i></button>
+                <button id="mobileVolUp"><i class="fas fa-volume-up"></i></button>
+            </div>
+            <div class="volume-row">
+                <span>🔊</span>
+                <span id="mobileTrackInfo">🔴 TRANSMISSÃO AO VIVO</span>
+            </div>
         </div>
-        <div>
-            <div class="chat-box glass-card"><h3><i class="fas fa-comments"></i> 💬 CHAT AO VIVO</h3><div class="chat-messages" id="chatMessages"><div><span style="color:#ff00aa;"><i class="fas fa-user"></i> Sistema:</span> Conectado à VIBE HITS!</div><div><span style="color:#00e5ff;"><i class="fas fa-user"></i> DJ Nix:</span> Alguém na área? 🔥</div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="Mande uma mensagem..."><button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button></div></div>
-        </div>
+        <footer style="margin-top:1rem;"><i class="fas fa-crown"></i> Ana Paula de Amorim Lopes Kester Cardozo | Desenvolvedor: Ricael Santos da Silva</footer>
     </div>
-
-    <div class="glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;"><h3><i class="fas fa-microphone-alt"></i> 🎤 LOCUTORES</h3><div class="dj-grid" id="djGrid"></div></div>
-    <div class="insta-card glass-card" style="padding: 1.2rem; margin-bottom: 1.8rem;"><h3><i class="fab fa-instagram"></i> @radio.vibehits · feed</h3><div class="insta-grid" id="instaGrid"></div><button class="follow-btn" id="followBtn"><i class="fab fa-instagram"></i> Seguir</button></div>
-    <footer><i class="fas fa-crown"></i> Dona do site: <strong>Ana Paula de Amorim Lopes Kester Cardozo</strong> &nbsp;|&nbsp;<i class="fas fa-code"></i> Desenvolvedor: <strong>Ricael Santos da Silva</strong><br>🌌 VIBE HITS · Transmitindo energia 24/7 · Conecte-se na batida</footer>
 </div>
+<!-- WhatsApp fixo (mesmo para ambos layouts) -->
 <div class="whatsapp-fixed" id="whatsappBtn"><i class="fab fa-whatsapp"></i></div>
 
 <script>
     (function(){
-        // loading overlay
+        // overlay
         setTimeout(()=>{ let ov=document.getElementById('loadingOverlay'); ov.style.opacity='0'; setTimeout(()=>ov.style.display='none',1000); },2000);
 
-        // ========== FUNDO ANIMADO ==========
+        // ========== FUNDO ANIMADO (partículas + aurora) ==========
         const canvas=document.getElementById('canvas-bg'), ctx=canvas.getContext('2d');
         let w,h, particles=[], mouseX=0,mouseY=0;
         function resize(){ w=window.innerWidth; h=window.innerHeight; canvas.width=w; canvas.height=h; initParticles(); }
@@ -286,137 +428,191 @@
         function animateBg(){ drawAurora(); drawParticles(); requestAnimationFrame(animateBg); }
         window.addEventListener('resize',resize); window.addEventListener('mousemove',(e)=>{ mouseX=e.clientX; mouseY=e.clientY; }); resize(); animateBg();
 
-        // ========== PLAYER E STREAM ==========
-        const audio=document.getElementById('radioStream');
-        const playBtn=document.getElementById('playPauseBtn');
-        const trackSpan=document.getElementById('trackName');
-        const artistSpan=document.getElementById('artistName');
-        const ouvinteSpan=document.getElementById('ouvinteCount');
-        let isPlaying=false;
+        // ========== STREAM REAL (compartilhado) ==========
+        const audio = document.getElementById('radioStream');
+        // elementos desktop
+        const playBtn = document.getElementById('playPauseBtn');
+        const trackSpan = document.getElementById('trackName');
+        const artistSpan = document.getElementById('artistName');
+        const ouvinteSpan = document.getElementById('ouvinteCount');
+        // elementos mobile
+        const mobilePlayBtn = document.getElementById('mobilePlayBtn');
+        const mobileTrackInfo = document.getElementById('mobileTrackInfo');
+        const mobileVolDown = document.getElementById('mobileVolDown');
+        const mobileVolUp = document.getElementById('mobileVolUp');
+        const freqSlider = document.getElementById('freqSlider');
+        const mobileFreq = document.getElementById('mobileFreq');
+        const mobileStation = document.getElementById('mobileStation');
+        const bandBtns = document.querySelectorAll('.band-btn');
 
-        function startPlay(){
-            audio.play().then(()=>{
-                isPlaying=true;
-                playBtn.innerHTML='<i class="fas fa-pause-circle"></i>';
-                trackSpan.innerText="🔴 TRANSMISSÃO AO VIVO";
-                artistSpan.innerText="VIBE HITS · 24/7";
+        let isPlaying = false;
+
+        function startPlay() {
+            audio.play().then(() => {
+                isPlaying = true;
+                if(playBtn) playBtn.innerHTML = '<i class="fas fa-pause-circle"></i>';
+                if(mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-pause-circle"></i>';
+                if(trackSpan) trackSpan.innerText = "🔴 TRANSMISSÃO AO VIVO";
+                if(artistSpan) artistSpan.innerText = "VIBE HITS · 24/7";
+                if(mobileTrackInfo) mobileTrackInfo.innerText = "🔴 AO VIVO - VIBE HITS";
                 startEqualizerAnimation(true);
                 startCoverRotation(true);
-            }).catch(()=>{ alert("Stream offline? Tente novamente."); isPlaying=false; playBtn.innerHTML='<i class="fas fa-play-circle"></i>'; startEqualizerAnimation(false); startCoverRotation(false); });
+                startMobileEqAnimation(true);
+            }).catch(() => {
+                alert("Stream offline? Tente novamente.");
+                isPlaying = false;
+                if(playBtn) playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+                if(mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+                if(trackSpan) trackSpan.innerText = "Pausado";
+                if(mobileTrackInfo) mobileTrackInfo.innerText = "⏸ Pausado - Clique no Play";
+                startEqualizerAnimation(false);
+                startCoverRotation(false);
+                startMobileEqAnimation(false);
+            });
         }
-        function stopPlay(){
+        function stopPlay() {
             audio.pause();
-            isPlaying=false;
-            playBtn.innerHTML='<i class="fas fa-play-circle"></i>';
-            trackSpan.innerText="Pausado";
-            artistSpan.innerText="Clique no PLAY";
+            isPlaying = false;
+            if(playBtn) playBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+            if(mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-play-circle"></i>';
+            if(trackSpan) trackSpan.innerText = "Pausado";
+            if(mobileTrackInfo) mobileTrackInfo.innerText = "⏸ Pausado";
             startEqualizerAnimation(false);
             startCoverRotation(false);
+            startMobileEqAnimation(false);
         }
-        playBtn.addEventListener('click',()=>{ if(isPlaying) stopPlay(); else startPlay(); });
-        document.getElementById('volDown').addEventListener('click',()=>{ if(audio.volume>0) audio.volume=Math.max(0,audio.volume-0.1); });
-        document.getElementById('volUp').addEventListener('click',()=>{ if(audio.volume<0.99) audio.volume=Math.min(1,audio.volume+0.1); });
 
-        // ========== EQUALIZADOR CENTRAL (barras reativas simuladas) ==========
-        const waveContainer=document.getElementById('waveEqualizer');
-        const BAR_COUNT=12;
-        for(let i=0;i<BAR_COUNT;i++){
-            let bar=document.createElement('div');
-            bar.className='wave-bar';
-            bar.style.height='20px';
-            bar.style.width='8px';
-            waveContainer.appendChild(bar);
+        function togglePlay() { if(isPlaying) stopPlay(); else startPlay(); }
+        if(playBtn) playBtn.addEventListener('click', togglePlay);
+        if(mobilePlayBtn) mobilePlayBtn.addEventListener('click', togglePlay);
+
+        // Volume
+        function volDown() { if(audio.volume > 0) audio.volume = Math.max(0, audio.volume - 0.1); }
+        function volUp() { if(audio.volume < 0.99) audio.volume = Math.min(1, audio.volume + 0.1); }
+        document.getElementById('volDown')?.addEventListener('click', volDown);
+        document.getElementById('volUp')?.addEventListener('click', volUp);
+        if(mobileVolDown) mobileVolDown.addEventListener('click', volDown);
+        if(mobileVolUp) mobileVolUp.addEventListener('click', volUp);
+
+        // equalizador desktop
+        const waveContainer = document.getElementById('waveEqualizer');
+        if(waveContainer) {
+            for(let i=0;i<12;i++){ let bar=document.createElement('div'); bar.className='wave-bar'; bar.style.height='20px'; waveContainer.appendChild(bar); }
         }
-        const bars=document.querySelectorAll('.wave-bar');
-        let eqInterval=null;
+        const bars = document.querySelectorAll('.wave-bar');
+        let eqInterval = null;
         function startEqualizerAnimation(active){
             if(eqInterval) clearInterval(eqInterval);
             if(active){
-                eqInterval=setInterval(()=>{
+                eqInterval = setInterval(()=>{
                     if(isPlaying){
-                        bars.forEach(bar=>{
-                            let newHeight=Math.floor(Math.random()*55)+15;
-                            bar.style.height=newHeight+'px';
-                            // intensidade do glow varia com altura
-                            let glowIntensity=Math.min(0.8, newHeight/80);
-                            bar.style.boxShadow=`0 0 ${8+glowIntensity*12}px cyan`;
-                        });
-                    } else {
-                        bars.forEach(bar=>{ bar.style.height='16px'; bar.style.boxShadow='0 0 4px cyan'; });
-                    }
-                }, 100);
-            } else {
-                bars.forEach(bar=>{ bar.style.height='16px'; bar.style.boxShadow='0 0 4px cyan'; });
-            }
+                        bars.forEach(bar=>{ let h=Math.floor(Math.random()*55)+15; bar.style.height=h+'px'; bar.style.boxShadow=`0 0 ${8+(h/80)*12}px cyan`; });
+                    } else { bars.forEach(bar=>{ bar.style.height='16px'; bar.style.boxShadow='0 0 4px cyan'; }); }
+                },100);
+            } else { bars.forEach(bar=>{ bar.style.height='16px'; bar.style.boxShadow='0 0 4px cyan'; }); }
         }
         // capa giratória
-        const coverImg=document.getElementById('coverImg');
-        let rotationInterval=null;
+        const coverImg = document.getElementById('coverImg');
+        let rotationInterval = null;
         function startCoverRotation(rotate){
             if(rotationInterval) clearInterval(rotationInterval);
             if(rotate){
                 coverImg.classList.add('rotating');
-                // mudar capa dinamicamente para dar efeito de "música tocando"
-                const covers=["https://placehold.co/200x200/1a1a2e/cyan?text=VIBE","https://placehold.co/200x200/2a0a3e/ff00aa?text=HITS","https://placehold.co/200x200/0a2a3e/00e5ff?text=RADIO"];
+                const covers = ["https://placehold.co/200x200/1a1a2e/cyan?text=VIBE","https://placehold.co/200x200/2a0a3e/ff00aa?text=HITS","https://placehold.co/200x200/0a2a3e/00e5ff?text=RADIO"];
                 let idx=0;
-                rotationInterval=setInterval(()=>{
-                    if(isPlaying){
-                        idx=(idx+1)%covers.length;
-                        coverImg.src=covers[idx];
-                    }
-                }, 5000);
-            } else {
-                coverImg.classList.remove('rotating');
-                if(rotationInterval) clearInterval(rotationInterval);
-                coverImg.src="https://placehold.co/200x200/1a1a2e/cyan?text=PAUSE";
-            }
+                rotationInterval = setInterval(()=>{ if(isPlaying){ idx=(idx+1)%covers.length; coverImg.src=covers[idx]; } },5000);
+            } else { coverImg.classList.remove('rotating'); if(rotationInterval) clearInterval(rotationInterval); coverImg.src="https://placehold.co/200x200/1a1a2e/cyan?text=PAUSE"; }
         }
 
-        // evento do audio para sincronizar
+        // Equalizador móvel (barras animadas)
+        const mobileEqBars = document.querySelectorAll('.eq-bar-anim');
+        let mobileEqInterval = null;
+        function startMobileEqAnimation(active){
+            if(mobileEqInterval) clearInterval(mobileEqInterval);
+            if(active){
+                mobileEqInterval = setInterval(()=>{
+                    if(isPlaying && mobileEqBars.length){
+                        mobileEqBars.forEach(bar=>{ let h = Math.floor(Math.random()*45)+15; bar.style.height = h+'px'; });
+                    } else { mobileEqBars.forEach(bar=>{ bar.style.height='20px'; }); }
+                }, 120);
+            } else { mobileEqBars.forEach(bar=>{ bar.style.height='20px'; }); }
+        }
+
+        // Simular ouvintes desktop
+        setInterval(()=>{
+            if(isPlaying && ouvinteSpan){
+                let cur = parseInt(ouvinteSpan.innerText);
+                if(isNaN(cur)) cur=1800;
+                let v = Math.floor(Math.random()*40)-15, n = cur+v;
+                if(n<1200)n=1200; if(n>3200)n=3200;
+                ouvinteSpan.innerText = n;
+            }
+        },12000);
+
+        // Slider de frequência (apenas visual)
+        if(freqSlider){
+            freqSlider.addEventListener('input', (e)=>{
+                let val = e.target.value;
+                mobileFreq.innerText = val;
+                let stations = {"87.5":"Rádio Cidade","93.5":"Red FM","98.1":"Jovem Pan","101.3":"Mix FM","105.7":"Antena 1","108":"Vibe Hits"};
+                let closest = Object.keys(stations).reduce((a,b)=> Math.abs(b-val) < Math.abs(a-val) ? b : a);
+                mobileStation.innerText = stations[closest] || "VIBE HITS";
+            });
+        }
+        bandBtns.forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                bandBtns.forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                if(btn.innerText === 'AM') freqSlider.min = "530"; freqSlider.max = "1700"; freqSlider.step = "10"; freqSlider.value = "1000";
+                else { freqSlider.min = "87.5"; freqSlider.max = "108"; freqSlider.step = "0.1"; freqSlider.value = "93.5"; }
+                mobileFreq.innerText = freqSlider.value;
+                mobileStation.innerText = (freqSlider.value === "93.5") ? "Red FM" : "VIBE HITS";
+            });
+        });
+
+        // Eventos do áudio para sincronizar
         audio.addEventListener('playing',()=>{
             isPlaying=true;
-            playBtn.innerHTML='<i class="fas fa-pause-circle"></i>';
-            trackSpan.innerText="🔴 AO VIVO";
+            if(playBtn) playBtn.innerHTML='<i class="fas fa-pause-circle"></i>';
+            if(mobilePlayBtn) mobilePlayBtn.innerHTML='<i class="fas fa-pause-circle"></i>';
+            if(trackSpan) trackSpan.innerText="🔴 AO VIVO";
+            if(mobileTrackInfo) mobileTrackInfo.innerText="🔴 AO VIVO - VIBE HITS";
             startEqualizerAnimation(true);
             startCoverRotation(true);
+            startMobileEqAnimation(true);
         });
         audio.addEventListener('pause',()=>{
             if(audio.paused){
                 isPlaying=false;
-                playBtn.innerHTML='<i class="fas fa-play-circle"></i>';
+                if(playBtn) playBtn.innerHTML='<i class="fas fa-play-circle"></i>';
+                if(mobilePlayBtn) mobilePlayBtn.innerHTML='<i class="fas fa-play-circle"></i>';
+                if(trackSpan) trackSpan.innerText="Pausado";
+                if(mobileTrackInfo) mobileTrackInfo.innerText="⏸ Pausado";
                 startEqualizerAnimation(false);
                 startCoverRotation(false);
+                startMobileEqAnimation(false);
             }
         });
-        // simular ouvintes
-        setInterval(()=>{
-            if(isPlaying){
-                let cur=parseInt(ouvinteSpan.innerText);
-                if(isNaN(cur)) cur=1800;
-                let v=Math.floor(Math.random()*40)-15, n=cur+v;
-                if(n<1200)n=1200; if(n>3200)n=3200;
-                ouvinteSpan.innerText=n;
-            }
-        },12000);
 
-        // ========== DEMAIS SEÇÕES (TOP HITS, PROGRAMAÇÃO, LOCUTORES, INSTA, CHAT, WHATSAPP) ==========
+        // Dados estáticos desktop
         const topHits=[{nome:"Blinding Lights",artista:"The Weeknd",votos:512},{nome:"Flowers",artista:"Miley Cyrus",votos:489},{nome:"VIBE HITS ANTHEM",artista:"DJ NIX",votos:367},{nome:"Supernova",artista:"Kylie",votos:298},{nome:"Levitating",artista:"Dua Lipa",votos:254}];
         const topCont=document.getElementById('topHitsContainer');
-        topHits.forEach((h,i)=>{ let d=document.createElement('div'); d.className='hit-item'; d.innerHTML=`<div><strong>${i+1}</strong> ${h.nome} · ${h.artista}</div><div class="hit-votos">🔥 ${h.votos}</div>`; topCont.appendChild(d); });
-        const sched=[{time:"18h",name:"Night Hits com DJ Nyx"},{time:"20h",name:"Flashback · Anos 2000"},{time:"22h",name:"Cyber Mix · Alta voltagem"},{time:"00h",name:"Aurora Beats"}];
-        const schedDiv=document.getElementById('scheduleList'); sched.forEach(s=>{ let p=document.createElement('div'); p.className='schedule-item'; p.innerHTML=`<span><i class="fas fa-clock"></i> ${s.time}</span><span>${s.name}</span>`; schedDiv.appendChild(p); });
+        if(topCont) topHits.forEach((h,i)=>{ let d=document.createElement('div'); d.className='hit-item'; d.innerHTML=`<div><strong>${i+1}</strong> ${h.nome} · ${h.artista}</div><div class="hit-votos">🔥 ${h.votos}</div>`; topCont.appendChild(d); });
+        const sched=[{time:"18h",name:"Night Hits"},{time:"20h",name:"Flashback"},{time:"22h",name:"Cyber Mix"},{time:"00h",name:"Aurora Beats"}];
+        const schedDiv=document.getElementById('scheduleList');
+        if(schedDiv) sched.forEach(s=>{ let p=document.createElement('div'); p.className='schedule-item'; p.innerHTML=`<span><i class="fas fa-clock"></i> ${s.time}</span><span>${s.name}</span>`; schedDiv.appendChild(p); });
         const djs=[{nome:"DJ NYX",horario:"20h - 00h",icone:"🎧"},{nome:"MC AURORA",horario:"00h - 04h",icone:"🎤"},{nome:"VIBE SELECTOR",horario:"14h - 18h",icone:"🔊"},{nome:"MISTY D",horario:"08h - 12h",icone:"🎛️"}];
-        const djGrid=document.getElementById('djGrid'); djs.forEach(d=>{ let c=document.createElement('div'); c.className='dj-card'; c.innerHTML=`<div style="font-size:2rem;">${d.icone}</div><strong>${d.nome}</strong><br><small>${d.horario}</small>`; djGrid.appendChild(c); });
-        const instaGrid=document.getElementById('instaGrid'); for(let i=0;i<6;i++){ let p=document.createElement('div'); p.className='insta-post'; p.innerHTML=`<i class="fas fa-music" style="font-size: 2rem; color:cyan;"></i><br><span style="font-size:0.6rem;">vibe.hits</span>`; instaGrid.appendChild(p); }
-        document.getElementById('followBtn').addEventListener('click',()=> window.open('https://www.instagram.com/vibe.cooee', '_blank'));
+        const djGrid=document.getElementById('djGrid');
+        if(djGrid) djs.forEach(d=>{ let c=document.createElement('div'); c.className='dj-card'; c.innerHTML=`<div style="font-size:2rem;">${d.icone}</div><strong>${d.nome}</strong><br><small>${d.horario}</small>`; djGrid.appendChild(c); });
+        // Chat
         const chatMsgs=document.getElementById('chatMessages'), chatInp=document.getElementById('chatInput'), sendChat=document.getElementById('sendChatBtn');
-        function addMsg(who,txt,isSys=false){ let d=document.createElement('div'); if(isSys) d.innerHTML=`<span style="color:#00e5ff;"><i class="fas fa-info-circle"></i> Sistema:</span> ${txt}`; else d.innerHTML=`<span style="color:#ff00aa;"><i class="fas fa-user"></i> ${who}:</span> ${txt}`; chatMsgs.appendChild(d); chatMsgs.scrollTop=chatMsgs.scrollHeight; }
-        sendChat.addEventListener('click',()=>{ let m=chatInp.value.trim(); if(!m) return; addMsg("OUVINTE",m); chatInp.value=""; setTimeout(()=>{ if(Math.random()>0.5) addMsg("DJ Nyx","🔥 Boa pedida!",false); else addMsg("Sistema","Mensagem enviada!",true); },1000); });
-        chatInp.addEventListener('keypress',(e)=>{ if(e.key==='Enter') sendChat.click(); });
-        document.getElementById('whatsappBtn').addEventListener('click',()=> window.open('https://wa.me/5527997982705', '_blank'));
-        // inicialização
-        startEqualizerAnimation(false);
-        startCoverRotation(false);
+        if(chatMsgs && chatInp && sendChat){
+            function addMsg(who,txt,isSys=false){ let d=document.createElement('div'); if(isSys) d.innerHTML=`<span style="color:#00e5ff;"><i class="fas fa-info-circle"></i> Sistema:</span> ${txt}`; else d.innerHTML=`<span style="color:#ff00aa;"><i class="fas fa-user"></i> ${who}:</span> ${txt}`; chatMsgs.appendChild(d); chatMsgs.scrollTop=chatMsgs.scrollHeight; }
+            sendChat.addEventListener('click',()=>{ let m=chatInp.value.trim(); if(!m) return; addMsg("OUVINTE",m); chatInp.value=""; setTimeout(()=>{ if(Math.random()>0.5) addMsg("DJ Nyx","🔥 Boa pedida!",false); else addMsg("Sistema","Mensagem enviada!",true); },1000); });
+            chatInp.addEventListener('keypress',(e)=>{ if(e.key==='Enter') sendChat.click(); });
+        }
+        document.getElementById('whatsappBtn')?.addEventListener('click',()=> window.open('https://wa.me/5527997982705', '_blank'));
+        document.getElementById('followBtn')?.addEventListener('click',()=> window.open('https://www.instagram.com/vibe.cooee', '_blank'));
     })();
 </script>
 </body>
