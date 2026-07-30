@@ -190,7 +190,8 @@
     window.addEventListener('resize', initDrops);
 
     function draw() {
-      ctx.fillStyle = 'rgba(30, 30, 30, 0.25)';
+      // CORREÇÃO DO EMBAÇAMENTO: Aumentamos a opacidade do fundo para limpar mais rápido e não deixar vulto/borrão
+      ctx.fillStyle = 'rgba(30, 30, 30, 0.4)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `bold ${fontSize}px "Fira Code", monospace`;
@@ -200,9 +201,12 @@
         const drop = drops[i];
 
         ctx.fillStyle = drop.color;
-        ctx.fillText(drop.text, drop.x, drop.y * fontSize);
+        
+        // CORREÇÃO DO EMBAÇAMENTO: Math.floor garante que a posição seja um número inteiro (evita o borrão de renderização)
+        const pixelY = Math.floor(drop.y * fontSize);
+        ctx.fillText(drop.text, drop.x, pixelY);
 
-        if (drop.y * fontSize > canvas.height) {
+        if (pixelY > canvas.height) {
           drop.y = -2;
           drop.text = pythonSnippets[Math.floor(Math.random() * pythonSnippets.length)];
           drop.color = colors[Math.floor(Math.random() * colors.length)];
