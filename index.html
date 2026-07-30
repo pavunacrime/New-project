@@ -68,15 +68,15 @@
       transform: scale(1.1);
     }
 
-    /* Nome PAVUNA centralizado */
+    /* Nome PAVUNA centralizado e responsivo */
     .center-title {
       position: relative;
       z-index: 10;
       font-family: 'Orbitron', sans-serif;
-      font-size: 5rem;
+      font-size: clamp(2.2rem, 10vw, 5rem);
       font-weight: 900;
       color: #ffffff;
-      letter-spacing: 12px;
+      letter-spacing: clamp(4px, 2vw, 12px);
       text-transform: uppercase;
       text-shadow: 
         0 0 10px #ff003c,
@@ -85,6 +85,7 @@
       user-select: none;
       pointer-events: none;
       text-align: center;
+      padding: 0 10px;
     }
 
     /* Canvas para a chuva de código */
@@ -95,6 +96,20 @@
       width: 100vw;
       height: 100vh;
       z-index: 1;
+    }
+
+    /* Ajustes específicos para telas de celular */
+    @media (max-width: 600px) {
+      .instagram-btn {
+        top: 15px;
+        right: 15px;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+
+      .instagram-btn i {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -116,12 +131,8 @@
     const canvas = document.getElementById('rainCanvas');
     const ctx = canvas.getContext('2d');
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+    let colWidth, fontSize, columns;
+    const drops = [];
 
     // Frases de Python
     const pythonSnippets = [
@@ -152,20 +163,31 @@
       '#b5cea8'  // Verde
     ];
 
-    const fontSize = 16;
-    const colWidth = 140;
-    const columns = Math.ceil(canvas.width / colWidth);
-    const drops = [];
+    function initDrops() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    for (let i = 0; i < columns; i++) {
-      drops[i] = {
-        x: i * colWidth + 10,
-        y: Math.random() * -50,
-        text: pythonSnippets[Math.floor(Math.random() * pythonSnippets.length)],
-        color: colors[Math.floor(Math.random() * colors.length)],
-        speed: 0.12 + Math.random() * 0.2
-      };
+      // Se for celular, usamos uma fonte levemente menor e colunas mais estreitas
+      const isMobile = window.innerWidth <= 600;
+      fontSize = isMobile ? 12 : 16;
+      colWidth = isMobile ? 100 : 140;
+
+      columns = Math.ceil(canvas.width / colWidth);
+      drops.length = 0; // Limpa o array atual
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = {
+          x: i * colWidth + 5,
+          y: Math.random() * -50,
+          text: pythonSnippets[Math.floor(Math.random() * pythonSnippets.length)],
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: 0.12 + Math.random() * 0.2
+        };
+      }
     }
+
+    initDrops();
+    window.addEventListener('resize', initDrops);
 
     function draw() {
       ctx.fillStyle = 'rgba(30, 30, 30, 0.25)';
