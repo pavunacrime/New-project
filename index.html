@@ -32,7 +32,7 @@
       position: fixed;
       top: 25px;
       left: 25px;
-      z-index: 100;
+      z-index: 9999;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -62,7 +62,7 @@
       position: fixed;
       top: 25px;
       right: 25px;
-      z-index: 100;
+      z-index: 9999;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -97,21 +97,21 @@
       transform: scale(1.1);
     }
 
-    /* Caixa do Salve / Discord (Centralizada no Rodapé) */
+    /* Caixa do Salve / Discord (Garantida na Camada Mais Alta) */
     .discord-box {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
+      position: fixed !important;
+      bottom: 30px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 9999 !important;
+      display: flex !important;
       gap: 10px;
-      background: rgba(30, 30, 30, 0.85);
-      border: 1px solid #ff003c;
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #ff003c;
       padding: 12px 18px;
       border-radius: 8px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
     }
 
     .discord-box input {
@@ -199,7 +199,7 @@
       }
 
       .discord-box {
-        bottom: 15px;
+        bottom: 15px !important;
         padding: 8px 12px;
       }
 
@@ -229,6 +229,9 @@
     <span>Instagram</span>
   </a>
 
+  <!-- Nome Central -->
+  <h1 class="center-title">PAVUNA</h1>
+
   <!-- Caixa de Envio do Salve -->
   <div class="discord-box">
     <input type="text" id="visitorName" placeholder="Seu Nome / Apelido" maxlength="20">
@@ -237,9 +240,6 @@
 
   <!-- Canvas da Chuva -->
   <canvas id="rainCanvas"></canvas>
-
-  <!-- Nome Central -->
-  <h1 class="center-title">PAVUNA</h1>
 
   <!-- Script de Envio pro Discord Blindado -->
   <script>
@@ -275,7 +275,7 @@
           alert('Salve enviado com sucesso!');
           nameInput.value = '';
         } else {
-          alert('Erro ao enviar o salve. Verifique as configurações na Vercel.');
+          alert('Erro ao enviar o salve. Verifique a chave no painel da Vercel.');
         }
       } catch (error) {
         console.error('Erro de envio:', error);
