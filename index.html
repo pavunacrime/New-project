@@ -241,7 +241,7 @@
   <!-- Canvas da Chuva -->
   <canvas id="rainCanvas"></canvas>
 
-  <!-- Script de Envio pro Discord Blindado -->
+  <!-- Script de Envio pro Discord (Atualizado para Rate Limit) -->
   <script>
     async function sendToDiscord() {
       const nameInput = document.getElementById('visitorName');
@@ -271,11 +271,14 @@
           body: JSON.stringify({ name, userIp })
         });
 
+        const result = await response.json();
+
         if (response.ok) {
           alert('Salve enviado com sucesso!');
           nameInput.value = '';
         } else {
-          alert('Erro ao enviar o salve. Verifique a chave no painel da Vercel.');
+          // Mostra a mensagem do backend (ex: tempo de espera do IP)
+          alert(result.error || 'Erro ao enviar o salve. Verifique a chave no painel da Vercel.');
         }
       } catch (error) {
         console.error('Erro de envio:', error);
