@@ -97,6 +97,55 @@
       transform: scale(1.1);
     }
 
+    /* Caixa do Salve / Discord (Canto Inferior) */
+    .discord-box {
+      position: fixed;
+      bottom: 25px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      background: rgba(30, 30, 30, 0.85);
+      border: 1px solid #ff003c;
+      padding: 12px 18px;
+      border-radius: 8px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+    }
+
+    .discord-box input {
+      background: #121212;
+      border: 1px solid #ff003c;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      outline: none;
+      width: 180px;
+    }
+
+    .discord-box input::placeholder {
+      color: #888;
+    }
+
+    .discord-box button {
+      background: #ff003c;
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-family: 'Fira Code', monospace;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .discord-box button:hover {
+      background: #00ffcc;
+      color: #121212;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
     /* Nome PAVUNA Centralizado */
     .center-title {
       position: relative;
@@ -143,8 +192,19 @@
         font-size: 0.8rem;
       }
 
-      .instagram-btn i, .visitor-count i {
-        font-size: 1rem;
+      .discord-box {
+        bottom: 15px;
+        padding: 8px 12px;
+      }
+
+      .discord-box input {
+        width: 130px;
+        font-size: 0.75rem;
+      }
+
+      .discord-box button {
+        font-size: 0.75rem;
+        padding: 6px 10px;
       }
     }
   </style>
@@ -163,13 +223,51 @@
     <span>Instagram</span>
   </a>
 
+  <!-- Caixa de Envio de Salve -->
+  <div class="discord-box">
+    <input type="text" id="visitorName" placeholder="Seu Nome / Apelido" maxlength="20">
+    <button onclick="sendToDiscord()">Mandar Salve</button>
+  </div>
+
   <!-- Canvas da Chuva -->
   <canvas id="rainCanvas"></canvas>
 
   <!-- Nome Central -->
   <h1 class="center-title">PAVUNA</h1>
 
-  <!-- Script do Contador (Backend API) -->
+  <!-- Script de Envio pro Discord via API Protegida -->
+  <script>
+    async function sendToDiscord() {
+      const nameInput = document.getElementById('visitorName');
+      const name = nameInput.value.trim() || 'Anônimo';
+
+      try {
+        // 1. Pegar o IP do Visitante
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const userIp = ipData.ip || 'Não identificado';
+
+        // 2. Enviar dados para o Backend seguro (API da Vercel)
+        const response = await fetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, userIp })
+        });
+
+        if (response.ok) {
+          alert('Salve enviado com sucesso!');
+          nameInput.value = '';
+        } else {
+          alert('Erro ao enviar o salve. Tente novamente mais tarde.');
+        }
+      } catch (error) {
+        console.error('Erro ao enviar:', error);
+        alert('Erro de comunicação com o servidor.');
+      }
+    }
+  </script>
+
+  <!-- Script do Contador de Visitas -->
   <script>
     async function updateVisitorCount() {
       try {
@@ -267,11 +365,8 @@
     setInterval(draw, 33);
   </script>
 
-  <!-- Vercel Analytics para HTML Puro -->
-  <script type="module">
-    import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics/+esm';
-    inject();
-  </script>
+  <!-- Vercel Web Analytics (Método Oficial) -->
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 
 </body>
 </html>
