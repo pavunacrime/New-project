@@ -6,10 +6,16 @@
   <title>Pavuna</title>
   
   <!-- Fontes e Ícones -->
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Fonte estilo GTA (Pricedown / pricedown.ttf) -->
   <style>
+    @font-face {
+      font-family: 'Pricedown';
+      src: url('https://fonts.cdnfonts.com/s/14352/pricedown_bl.woff') format('woff');
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -68,24 +74,27 @@
       transform: scale(1.1);
     }
 
-    /* Nome PAVUNA centralizado e responsivo */
+    /* Nome PAVUNA no estilo GTA */
     .center-title {
       position: relative;
       z-index: 10;
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2.2rem, 10vw, 5rem);
-      font-weight: 900;
+      font-family: 'Pricedown', sans-serif;
+      font-size: clamp(3.5rem, 15vw, 7.5rem);
+      font-weight: normal;
       color: #ffffff;
-      letter-spacing: clamp(4px, 2vw, 12px);
-      text-transform: uppercase;
+      letter-spacing: clamp(2px, 1vw, 6px);
+      text-transform: none;
+      text-align: center;
+      padding: 0 10px;
+      user-select: none;
+      pointer-events: none;
+      /* Estilo GTA com sombra e brilho vermelho */
+      -webkit-text-stroke: 2px #000;
       text-shadow: 
         0 0 10px #ff003c,
         0 0 25px #ff003c,
-        0 0 50px #ff003c;
-      user-select: none;
-      pointer-events: none;
-      text-align: center;
-      padding: 0 10px;
+        0 0 50px #ff003c,
+        3px 3px 0px #000;
     }
 
     /* Canvas para a chuva de código */
@@ -98,7 +107,7 @@
       z-index: 1;
     }
 
-    /* Ajustes específicos para telas de celular */
+    /* Ajustes para telas pequenas / celular */
     @media (max-width: 600px) {
       .instagram-btn {
         top: 15px;
@@ -109,6 +118,10 @@
 
       .instagram-btn i {
         font-size: 1.1rem;
+      }
+
+      .center-title {
+        -webkit-text-stroke: 1.5px #000;
       }
     }
   </style>
@@ -124,10 +137,8 @@
   <!-- Canvas da Chuva -->
   <canvas id="rainCanvas"></canvas>
 
-  <!-- Nome no Centro -->
-  <div class="center-title-container">
-    <img src="logo-gta.png" alt="PAVUNA" class="gta-logo">
-</div>
+  <!-- Nome no Centro estilo GTA -->
+  <h1 class="center-title">Pavuna</h1>
 
   <script>
     const canvas = document.getElementById('rainCanvas');
@@ -169,13 +180,12 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      // Se for celular, usamos uma fonte levemente menor e colunas mais estreitas
       const isMobile = window.innerWidth <= 600;
       fontSize = isMobile ? 12 : 16;
       colWidth = isMobile ? 100 : 140;
 
       columns = Math.ceil(canvas.width / colWidth);
-      drops.length = 0; // Limpa o array atual
+      drops.length = 0;
 
       for (let i = 0; i < columns; i++) {
         drops[i] = {
@@ -192,7 +202,7 @@
     window.addEventListener('resize', initDrops);
 
     function draw() {
-      // CORREÇÃO DO EMBAÇAMENTO: Aumentamos a opacidade do fundo para limpar mais rápido e não deixar vulto/borrão
+      // Limpeza sem deixar vulto/embaçamento
       ctx.fillStyle = 'rgba(30, 30, 30, 0.4)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -204,7 +214,7 @@
 
         ctx.fillStyle = drop.color;
         
-        // CORREÇÃO DO EMBAÇAMENTO: Math.floor garante que a posição seja um número inteiro (evita o borrão de renderização)
+        // Arredonda a posição Y para evitar renderização desfocada
         const pixelY = Math.floor(drop.y * fontSize);
         ctx.fillText(drop.text, drop.x, pixelY);
 
