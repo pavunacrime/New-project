@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pavuna Cooee</title>
+  
+  <!-- Fonte com estilo Cyberpunk / Hacker -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilos Gerais */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Container para a Imagem de Fundo Brilhante */
+    .bg-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .bg-image {
+      max-width: 500px;
+      width: 80%;
+      height: auto;
+      border-radius: 20px;
+      /* Efeito de brilho vermelho intenso e animação de pulsar */
+      filter: drop-shadow(0 0 25px #ff003c) drop-shadow(0 0 50px #ff0000);
+      animation: neonPulse 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes neonPulse {
+      0% {
+        filter: drop-shadow(0 0 15px #ff003c) drop-shadow(0 0 30px #800000);
+        transform: scale(0.98);
+      }
+      100% {
+        filter: drop-shadow(0 0 35px #ff003c) drop-shadow(0 0 70px #ff0000);
+        transform: scale(1.02);
+      }
+    }
+
+    /* Canvas para a Animação das Armas Caindo */
+    #rainCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Conteúdo Principal do Site */
+    .main-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    /* Título Pavuna Cooee */
+    h1.title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 
+        0 0 10px #ff003c,
+        0 0 20px #ff003c,
+        0 0 40px #ff003c,
+        0 0 80px #ff0000;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* Seção dos Códigos Python */
+    .code-section {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(10, 10, 12, 0.85);
+      border: 1px solid rgba(255, 0, 60, 0.4);
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.2);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+
+    .code-header {
+      background: #121215;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 0, 60, 0.3);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .red { background: #ff4d4d; }
+    .yellow { background: #ffbd2e; }
+    .green { background: #27c93f; }
+
+    .code-title {
+      color: #888;
+      font-size: 0.85rem;
+      margin-left: auto;
+    }
+
+    pre {
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Cores de Sintaxe do Python */
+    .keyword { color: #ff0055; font-weight: bold; }
+    .function { color: #00e5ff; }
+    .string { color: #00ff66; }
+    .comment { color: #666; font-style: italic; }
+    .number { color: #ff9900; }
+  </style>
+</head>
+<body>
+
+  <!-- Imagem de Fundo com Brilho Neon -->
+  <div class="bg-container">
+    <!-- Subsitua a URL abaixo pela imagem local se preferir (ex: background.jpg) -->
+    <img src="https://i.imgur.com/3VdDk2d.jpg" alt="Pavuna Cooee Background" class="bg-image">
+  </div>
+
+  <!-- Tela para animação de chuva de armas -->
+  <canvas id="rainCanvas"></canvas>
+
+  <!-- Conteúdo do Site -->
+  <main class="main-content">
+    <h1 class="title">Pavuna Cooee</h1>
+
+    <!-- Bloco de Código Python -->
+    <div class="code-section">
+      <div class="code-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="code-title">pavuna_script.py</span>
+      </div>
+      <pre><code><span class="comment"># Script Cyberpunk - Pavuna Cooee</span>
+<span class="keyword">import</span> time
+<span class="keyword">import</span> random
+
+<span class="keyword">class</span> <span class="function">PavunaCooee</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.status = <span class="string">"ONLINE"</span>
+        self.weapons = [<span class="string">"🔫"</span>, <span class="string">"⚔️"</span>, <span class="string">"💣"</span>, <span class="string">"🗡️"</span>]
+    
+    <span class="keyword">def</span> <span class="function">iniciar_sistema</span>(self):
+        <span class="function">print</span>(f<span class="string">"[+] Carregando interface: {self.status}"</span>)
+        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="number">5</span>):
+            arma = random.choice(self.weapons)
+            <span class="function">print</span>(f<span class="string">"[-] Spawnando artefato {i+1}: {arma}"</span>)
+            time.sleep(<span class="number">0.3</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    app = PavunaCooee()
+    app.iniciar_sistema()
+</code></pre>
+    </div>
+  </main>
+
+  <!-- Script para a Chuva de Armas -->
+  <script>
+    const canvas = document.getElementById('rainCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Emojis de armas para a chuva
+    const weapons = ['🔫', '🗡️', '⚔️', '💣', '🔪', '🛡️'];
+    const fontSize = 22;
+    const columns = Math.floor(canvas.width / (fontSize + 10));
+    
+    // Array com as posições Y de cada coluna
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100; // Início assíncrono topo
+    }
+
+    function draw() {
+      // Limpa com leve opacidade para criar rastro
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = `${fontSize}px sans-serif`;
+
+      for (let i = 0; i < drops.length; i++) {
+        // Seleciona uma arma aleatória
+        const text = weapons[Math.floor(Math.random() * weapons.length)];
+        const x = i * (fontSize + 10);
+        const y = drops[i] * fontSize;
+
+        // Desenha o emoji da arma
+        ctx.fillText(text, x, y);
+
+        // Se a arma chegou ao final da tela, reseta aleatoriamente para o topo
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    // Roda a animação a 30 FPS
+    setInterval(draw, 33);
+  </script>
+</body>
+</html>
