@@ -97,10 +97,12 @@
       transform: scale(1.1);
     }
 
-    /* Caixa do Salve / Discord (Canto Inferior) */
+    /* Caixa do Salve / Discord (Centralizada no Rodapé) */
     .discord-box {
       position: fixed;
       bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 100;
       display: flex;
       gap: 10px;
@@ -192,6 +194,10 @@
         font-size: 0.8rem;
       }
 
+      .instagram-btn i, .visitor-count i {
+        font-size: 1rem;
+      }
+
       .discord-box {
         bottom: 15px;
         padding: 8px 12px;
@@ -223,7 +229,7 @@
     <span>Instagram</span>
   </a>
 
-  <!-- Caixa de Envio de Salve -->
+  <!-- Caixa de Envio do Salve -->
   <div class="discord-box">
     <input type="text" id="visitorName" placeholder="Seu Nome / Apelido" maxlength="20">
     <button onclick="sendToDiscord()">Mandar Salve</button>
@@ -235,19 +241,30 @@
   <!-- Nome Central -->
   <h1 class="center-title">PAVUNA</h1>
 
-  <!-- Script de Envio pro Discord via API Protegida -->
+  <!-- Script de Envio pro Discord Blindado -->
   <script>
     async function sendToDiscord() {
       const nameInput = document.getElementById('visitorName');
       const name = nameInput.value.trim() || 'Anônimo';
 
+      // Captura IP com tempo limite (timeout) para não travar em celular/AdBlock
+      let userIp = 'Não identificado';
       try {
-        // 1. Pegar o IP do Visitante
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const userIp = ipData.ip || 'Não identificado';
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        const ipResponse = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (ipResponse.ok) {
+          const ipData = await ipResponse.json();
+          userIp = ipData.ip || 'Não identificado';
+        }
+      } catch (e) {
+        console.warn('IP indisponível ou bloqueado pelo dispositivo:', e);
+      }
 
-        // 2. Enviar dados para o Backend seguro (API da Vercel)
+      // Envia os dados para a API da Vercel
+      try {
         const response = await fetch('/api/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -258,11 +275,11 @@
           alert('Salve enviado com sucesso!');
           nameInput.value = '';
         } else {
-          alert('Erro ao enviar o salve. Tente novamente mais tarde.');
+          alert('Erro ao enviar o salve. Verifique as configurações na Vercel.');
         }
       } catch (error) {
-        console.error('Erro ao enviar:', error);
-        alert('Erro de comunicação com o servidor.');
+        console.error('Erro de envio:', error);
+        alert('Erro de comunicação.');
       }
     }
   </script>
@@ -365,7 +382,7 @@
     setInterval(draw, 33);
   </script>
 
-  <!-- Vercel Web Analytics (Método Oficial) -->
+  <!-- Vercel Web Analytics -->
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 
 </body>
